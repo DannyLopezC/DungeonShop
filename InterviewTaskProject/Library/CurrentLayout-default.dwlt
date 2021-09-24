@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 579, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 20
+  controlID: 120
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 303, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 66
+  controlID: 60
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_MinSize: {x: 303, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 67
+  controlID: 61
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -399,7 +399,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: eafaffff
+      m_ExpandedIDs: 36faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1132,20 +1132,20 @@ MonoBehaviour:
     m_SkipHidden: 1
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Project
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets
+  - Assets/Project
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Unity\InterviewTask\InterviewTaskProject
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 02490000
-    m_LastClickedID: 18690
-    m_ExpandedIDs: 000000000249000000ca9a3b
+    m_SelectedIDs: c63a0000
+    m_LastClickedID: 15046
+    m_ExpandedIDs: 00000000b43a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1173,7 +1173,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 3102}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 
+    m_ExpandedIDs: 00000000b43a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1200,7 +1200,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 7e620000e084000002620000985f0000325c000070430900343f1600560500007605000004b60800b810000006290000c01e00008a290000d2050000d6050000fc210000de1c0000e21c0000e01c00003423000012230000128a00008a750100628a0000848a00004a8a00005e8a0000428a00002a8a00002e8a00003e8a00007a480e000e8a0000708a0000068a00000a8a0000ca3c3300e43c33005a370000fc4d1500203d5000322300001606000010e60c0002e60c004e0d0000982700007c23000004230000004600006c410000288c010046410000b2420000fa3c0000e6d60a00a8360100be2101001cbf0000c2d40000f01801003eb800000e29010028a70000fa950000ee180100e6980000de550000e2550000aaaa0000945400005e6e00008aaa00006e810000c69e0000409a000018770000ae55050012860000fca00000f6a000006e56000068bb01008abb0100668b0000c86a00002a750000528a0000688b00006a2c03004c9700006c8b00009a7500001009010066d503006ad503004ca70000749700001abc0000788c0000947f00003a800000366b0000665700001c6d00007647060056be06004a940000ee47060052570000246d00004aa60000249b0000b09a0000ae9a000086a4000084a400002a9400008aa4000002980000cc820000186d0000a08100009e810000426c000088a50000406c00003abd0000de9a0000c2a40000d80402008cde0000e4930100409b0000e098000038af0000e4940000000000005883000066830000fe9b0000bc9d0000dc9d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
