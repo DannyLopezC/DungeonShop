@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     private BoxCollider2D _collider;
     private Vector3 _moveDelta;
 
+    public int money;
+
     private void Start()
     {
         _collider = GetComponent<BoxCollider2D>();

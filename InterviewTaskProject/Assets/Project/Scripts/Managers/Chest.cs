@@ -1,0 +1,37 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Chest : Collectable
+{
+    public Sprite openedChest;
+    public Sprite emptyChest;
+    public int money;
+    private bool _opened;
+
+    protected override void OnCollide(Collider2D c)
+    {
+        if (c.tag == "Player")
+        {
+            if (!_opened)
+            {
+                _opened = true;
+                ChangeSprite(openedChest);
+            }
+            else OnCollect(c);
+        }
+    }
+
+    protected override void OnCollect(Collider2D c)
+    {
+        if (!collected)
+        {
+            ChangeSprite(emptyChest);
+            c.GetComponent<Player>().money += money;
+        }
+
+        base.OnCollect(c);
+    }
+
+    private void ChangeSprite(Sprite s) => GetComponent<SpriteRenderer>().sprite = s;
+}
