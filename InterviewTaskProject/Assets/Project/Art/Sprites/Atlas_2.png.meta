@@ -19,7 +19,7 @@ TextureImporter:
     second: full_sword
   - first:
       213: 812257883305809465
-    second: full__big_sword
+    second: full_big_sword
   - first:
       213: -2240828281017969637
     second: full_long_saber
@@ -264,7 +264,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: full__big_sword
+      name: full_big_sword
       rect:
         serializedVersion: 2
         x: 211
