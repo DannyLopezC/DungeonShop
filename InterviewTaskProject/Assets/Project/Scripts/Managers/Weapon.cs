@@ -13,3 +13,4 @@ public class Weapon : ScriptableObject
 
     public Sprite sprite;
 }
+

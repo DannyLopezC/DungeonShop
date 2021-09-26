@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: full_wood_sword
   m_EditorClassIdentifier: 
   id: 17
-  damage: 0
-  force: 0
+  damage: 1
+  force: 4
   sprite: {fileID: 1350488357166194873, guid: a3379a260b6c09f4bb6bd6819ccab7c2, type: 3}

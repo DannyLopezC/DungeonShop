@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Fighter
 {
     private BoxCollider2D _collider;
     private Vector3 _moveDelta;
@@ -30,6 +30,11 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Movement();
+    }
+
+    private void Movement()
+    {
         _moveDelta = Vector3.zero;
 
         float x = Input.GetAxisRaw("Horizontal");
@@ -41,6 +46,10 @@ public class Player : MonoBehaviour
         //change facing direction
         if (_moveDelta.x > 0) transform.localScale = Vector3.one;
         else if (_moveDelta.x < 0) transform.localScale = new Vector3(-1, 1, 1);
+
+        //push
+        _moveDelta += pushDirection;
+        pushDirection = Vector3.Lerp(pushDirection, Vector3.zero, pushRecoverySpeed);
 
         //movement
         transform.Translate(_moveDelta * Time.deltaTime);

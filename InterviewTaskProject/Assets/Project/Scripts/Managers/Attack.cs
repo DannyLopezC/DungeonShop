@@ -18,8 +18,8 @@ public class Attack : Collidable
         }
     }
 
-
-    private SpriteRenderer _spriteRenderer;
+    private Weapon _currentWeapon;
+    public SpriteRenderer spriteRenderer;
 
     [InlineEditor]
     public List<Weapon> weapons;
@@ -27,32 +27,49 @@ public class Attack : Collidable
     private float _cooldown = 0.5f;
     private float lastSwing;
 
+    private Animator _animator;
+
     protected override void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         equipped = 0;
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if (Time.time - lastSwing > _cooldown)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            lastSwing = Time.deltaTime;
-            Swing();
+            if (Time.time - lastSwing > _cooldown)
+            {
+                lastSwing = Time.deltaTime;
+                Swing();
+            }
         }
-    }
-
-    private void Swing()
-    {
     }
 
     protected override void OnCollide(Collider2D c)
     {
+        if (c.tag == "Enemy")
+        {
+            Damage dmg = new Damage(transform.position, _currentWeapon.damage, _currentWeapon.force);
 
+            c.SendMessage("ReceiveDamage", dmg);
+        }
     }
 
-    public void ChangeWeapon(int equip) =>
-        _spriteRenderer.sprite = weapons.Find(w => w.id == Mathf.Clamp(equip, 0, weapons.Count - 1)).sprite;
+    public void Swing()
+    {
+        _animator.SetTrigger("Swing");
+    }
+
+    public void ChangeWeapon(int equip)
+    {
+        _currentWeapon = weapons.Find(w => w.id == Mathf.Clamp(equip, 0, weapons.Count - 1));
+
+        if (_currentWeapon == null) _currentWeapon = weapons[0];
+
+        spriteRenderer.sprite = _currentWeapon.sprite;
+    }
 
     [Button]
     public void SetIds()
