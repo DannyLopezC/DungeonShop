@@ -198,11 +198,6 @@ MonoBehaviour:
   money: 0
   clothes:
   - {fileID: 11400000, guid: 57b51e7335b99b44fbf379d1bd14f12c, type: 2}
-  - {fileID: 11400000, guid: 5175546a52750d5479c525cc9676c289, type: 2}
-  - {fileID: 11400000, guid: 7f27599d97b9a1d489e226c328cbf5d6, type: 2}
-  - {fileID: 11400000, guid: 486fd8cd9a77dd8419b57368dab3533c, type: 2}
-  - {fileID: 11400000, guid: 013e1c3bddd1fd649987cf15aa79ded3, type: 2}
-  - {fileID: 11400000, guid: 452be0666d15e014c94fdb35c6a09579, type: 2}
 --- !u!212 &9155277413862930961
 SpriteRenderer:
   m_ObjectHideFlags: 0

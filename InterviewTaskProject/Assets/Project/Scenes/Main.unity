@@ -31045,6 +31045,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 9155277413862930974, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4,
+        type: 3}
+      propertyPath: clothes.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 452be0666d15e014c94fdb35c6a09579,
+        type: 2}
+    - target: {fileID: 9155277413862930974, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4,
+        type: 3}
+      propertyPath: clothes.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 452be0666d15e014c94fdb35c6a09579,
+        type: 2}
+    - target: {fileID: 9155277413862930974, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4,
+        type: 3}
+      propertyPath: clothes.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 452be0666d15e014c94fdb35c6a09579,
+        type: 2}
+    - target: {fileID: 9155277413862930974, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4,
+        type: 3}
+      propertyPath: clothes.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 452be0666d15e014c94fdb35c6a09579,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 8442238341252402208, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4, type: 3}
