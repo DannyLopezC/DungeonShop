@@ -21,17 +21,8 @@ public class Attack : Collidable
 
     private SpriteRenderer _spriteRenderer;
 
+    [InlineEditor]
     public List<Weapon> weapons;
-
-    [Button]
-    public void SetNames()
-    {
-        for (int i = 0; i < weapons.Count; i++)
-        {
-            if (weapons[i].sprite != null) weapons[i].name = weapons[i].sprite.name;
-            else Debug.Log($"No sprite in weapon {weapons[i]}");
-        }
-    }
 
     private float _cooldown = 0.5f;
     private float lastSwing;

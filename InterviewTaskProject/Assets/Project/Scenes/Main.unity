@@ -30897,6 +30897,47 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 9155277413862930974, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4,
+        type: 3}
+      propertyPath: clothes.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155277413862930974, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4,
+        type: 3}
+      propertyPath: clothes.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 57b51e7335b99b44fbf379d1bd14f12c,
+        type: 2}
+    - target: {fileID: 9155277413862930974, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4,
+        type: 3}
+      propertyPath: clothes.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5175546a52750d5479c525cc9676c289,
+        type: 2}
+    - target: {fileID: 9155277413862930974, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4,
+        type: 3}
+      propertyPath: clothes.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7f27599d97b9a1d489e226c328cbf5d6,
+        type: 2}
+    - target: {fileID: 9155277413862930974, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4,
+        type: 3}
+      propertyPath: clothes.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 486fd8cd9a77dd8419b57368dab3533c,
+        type: 2}
+    - target: {fileID: 9155277413862930974, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4,
+        type: 3}
+      propertyPath: clothes.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 013e1c3bddd1fd649987cf15aa79ded3,
+        type: 2}
+    - target: {fileID: 9155277413862930974, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4,
+        type: 3}
+      propertyPath: clothes.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 452be0666d15e014c94fdb35c6a09579,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 8442238341252402208, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e9a229f1dabe3b34fbb9ea8e94b2f6f4, type: 3}

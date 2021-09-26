@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
     [Button]
     public void ChangeWeapon(int id) => player.GetComponentInChildren<Attack>().equipped = id;
 
+    [Button]
+    public void ChangeClothing(int id) => player.clothesId = id;
+
     public void ShowText(string msg, int fontSize, Color color, Vector3 position, Vector3 motion, float duration) =>
         ftm.Show(msg, fontSize, color, position, motion, duration);
 }

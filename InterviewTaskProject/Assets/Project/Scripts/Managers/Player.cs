@@ -9,6 +9,20 @@ public class Player : MonoBehaviour
 
     public int money;
 
+    public List<Clothes> clothes;
+
+    private int _clothesId;
+
+    public int clothesId
+    {
+        get { return _clothesId; }
+        set
+        {
+            _clothesId = value;
+            ChangeClothing(_clothesId);
+        }
+    }
+
     private void Start()
     {
         _collider = GetComponent<BoxCollider2D>();
@@ -31,4 +45,6 @@ public class Player : MonoBehaviour
         //movement
         transform.Translate(_moveDelta * Time.deltaTime);
     }
+
+    public void ChangeClothing(int id) => GetComponent<SpriteRenderer>().sprite = clothes.Find(w => w.id == Mathf.Clamp(id, 0, clothes.Count - 1)).sprite;
 }

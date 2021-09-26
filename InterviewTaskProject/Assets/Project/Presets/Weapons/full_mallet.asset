@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 851c0b5ab73d58946b2bd363becd07a1, type: 3}
-  m_Name: Weapon_sword 19
+  m_Name: full_mallet
   m_EditorClassIdentifier: 
-  id: 0
+  id: 7
   damage: 0
   force: 0
-  sprite: {fileID: -3299241570889146217, guid: a3379a260b6c09f4bb6bd6819ccab7c2, type: 3}
+  sprite: {fileID: -5493152279462105568, guid: a3379a260b6c09f4bb6bd6819ccab7c2, type: 3}
