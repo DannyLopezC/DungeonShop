@@ -220,6 +220,12 @@ MonoBehaviour:
   lookAt: {fileID: 1558048950}
   xbound: 0.3
   ybound: 0.15
+--- !u!224 &224622981 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8775326399943795961, guid: ce63081fac2bedd4193a4512c466d292,
+    type: 3}
+  m_PrefabInstance: {fileID: 8775326399891414396}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &347456189
 GameObject:
   m_ObjectHideFlags: 0
@@ -31072,6 +31078,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8775326399222643124, guid: ce63081fac2bedd4193a4512c466d292,
+        type: 3}
+      propertyPath: menuCanvas
+      value: 
+      objectReference: {fileID: 224622981}
     - target: {fileID: 8775326399222643130, guid: ce63081fac2bedd4193a4512c466d292,
         type: 3}
       propertyPath: m_Name
