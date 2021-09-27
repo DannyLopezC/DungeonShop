@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player : Fighter
 {
-    private BoxCollider2D _collider;
     private Vector3 _moveDelta;
 
     public int money;
@@ -21,11 +20,6 @@ public class Player : Fighter
             _clothesId = value;
             ChangeClothing(_clothesId);
         }
-    }
-
-    private void Start()
-    {
-        _collider = GetComponent<BoxCollider2D>();
     }
 
     private void FixedUpdate()
@@ -56,4 +50,9 @@ public class Player : Fighter
     }
 
     public void ChangeClothing(int id) => GetComponent<SpriteRenderer>().sprite = clothes.Find(w => w.id == Mathf.Clamp(id, 0, clothes.Count - 1)).sprite;
+
+    protected override void Death()
+    {
+        //restart scene
+    }
 }

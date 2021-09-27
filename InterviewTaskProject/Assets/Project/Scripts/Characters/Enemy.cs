@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : Fighter
 {
@@ -20,8 +21,10 @@ public class Enemy : Fighter
 
     private Vector3 _moveDelta;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         _player = GameManager.instance.player.transform;
         _startingPos = homeTransform.position;
     }
@@ -36,6 +39,11 @@ public class Enemy : Fighter
             GameManager.instance.player.isActiveAndEnabled;
 
         _goingHome = !_chasing && !_inHome;
+    }
+
+    private void Update()
+    {
+        //GetComponentInChildren<Image>().fillAmount = life / maxLife;
     }
 
     private void OnTriggerEnter2D(Collider2D c)

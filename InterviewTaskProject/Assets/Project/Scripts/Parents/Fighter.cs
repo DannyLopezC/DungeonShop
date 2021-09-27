@@ -6,8 +6,8 @@ public class Fighter : MonoBehaviour
 {
     //Public fields
 
-    public int life = 10;
-    public int maxHitpoint = 10;
+    public float life;
+    public float maxLife;
     public float pushRecoverySpeed = 0.2f;
 
     //Inmunity
@@ -17,6 +17,11 @@ public class Fighter : MonoBehaviour
 
     //push
     protected Vector3 pushDirection;
+
+    protected virtual void Start()
+    {
+        life = maxLife;
+    }
 
     protected virtual void ReceiveDamage(Damage dmg)
     {
