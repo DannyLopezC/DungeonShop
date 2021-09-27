@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: full_weak
   m_EditorClassIdentifier: 
   id: 15
-  damage: 0
-  force: 0
+  damage: 3
+  force: 2
+  price: 3
   sprite: {fileID: 4468274204181518755, guid: a3379a260b6c09f4bb6bd6819ccab7c2, type: 3}

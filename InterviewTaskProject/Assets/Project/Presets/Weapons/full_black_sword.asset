@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: full_black_sword
   m_EditorClassIdentifier: 
   id: 1
-  damage: 0
-  force: 0
+  damage: 4
+  force: 3
+  price: 4
   sprite: {fileID: -5731577361326820869, guid: a3379a260b6c09f4bb6bd6819ccab7c2, type: 3}

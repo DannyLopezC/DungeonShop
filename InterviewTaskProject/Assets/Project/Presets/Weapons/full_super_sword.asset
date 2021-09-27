@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: full_super_sword
   m_EditorClassIdentifier: 
   id: 13
-  damage: 0
-  force: 0
+  damage: 20
+  force: 7
+  price: 20
   sprite: {fileID: 4068625089092299315, guid: a3379a260b6c09f4bb6bd6819ccab7c2, type: 3}

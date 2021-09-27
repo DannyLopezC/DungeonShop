@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: full_silver_sword
   m_EditorClassIdentifier: 
   id: 12
-  damage: 0
-  force: 0
+  damage: 5
+  force: 3
+  price: 8
   sprite: {fileID: 3389949119108343194, guid: a3379a260b6c09f4bb6bd6819ccab7c2, type: 3}

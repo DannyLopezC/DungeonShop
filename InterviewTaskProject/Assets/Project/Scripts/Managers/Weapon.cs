@@ -10,6 +10,7 @@ public class Weapon : ScriptableObject
     public int id;
     public int damage;
     public float force;
+    public int price;
 
     public Sprite sprite;
 }

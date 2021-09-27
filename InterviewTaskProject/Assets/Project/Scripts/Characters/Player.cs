@@ -53,6 +53,7 @@ public class Player : Fighter
 
     protected override void Death()
     {
+        base.Death();
         //restart scene
     }
 }

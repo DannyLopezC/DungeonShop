@@ -5,8 +5,14 @@ using UnityEngine;
 public class Fighter : MonoBehaviour
 {
     //Public fields
+    private float _life;
 
-    public float life;
+    public float life
+    {
+        get { return _life; }
+        set { _life = Mathf.Clamp(value, value, maxLife); }
+    }
+
     public float maxLife;
     public float pushRecoverySpeed = 0.2f;
 
@@ -35,7 +41,6 @@ public class Fighter : MonoBehaviour
 
             GameManager.instance.ShowText($"{dmg.damageAmount} damage", 35, Color.white, transform.position, Vector3.up * Random.Range(30, 50), 2f);
 
-            Debug.Log($"life {life}");
             if (life <= 0)
             {
                 life = 0;

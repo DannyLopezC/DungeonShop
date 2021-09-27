@@ -9,6 +9,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public Button inventoryButton;
+    public Image lifeBar;
 
     public GameObject menuGo;
     public Animator animator;
@@ -46,6 +47,7 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) OnInventory(!opened);
 
         menuLifeBar.fillAmount = gm.player.life / gm.player.maxLife;
+        lifeBar.fillAmount = gm.player.life / gm.player.maxLife;
     }
 
     #region buttons

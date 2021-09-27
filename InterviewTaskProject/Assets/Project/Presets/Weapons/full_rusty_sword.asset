@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: full_rusty_sword
   m_EditorClassIdentifier: 
   id: 9
-  damage: 0
-  force: 0
+  damage: 2
+  force: 2
+  price: 2
   sprite: {fileID: -1945050861245115244, guid: a3379a260b6c09f4bb6bd6819ccab7c2, type: 3}

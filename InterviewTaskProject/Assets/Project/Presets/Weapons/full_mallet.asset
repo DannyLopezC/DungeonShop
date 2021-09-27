@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: full_mallet
   m_EditorClassIdentifier: 
   id: 7
-  damage: 0
-  force: 0
+  damage: 10
+  force: 6
   sprite: {fileID: -5493152279462105568, guid: a3379a260b6c09f4bb6bd6819ccab7c2, type: 3}

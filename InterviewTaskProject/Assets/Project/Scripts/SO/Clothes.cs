@@ -6,6 +6,7 @@ using UnityEngine;
 public class Clothes : ScriptableObject
 {
     public int id;
+    public int price;
 
     public Sprite sprite;
 }
