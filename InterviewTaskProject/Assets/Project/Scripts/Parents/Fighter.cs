@@ -28,7 +28,7 @@ public class Fighter : MonoBehaviour
 
             pushDirection = (transform.position - dmg.origin).normalized * dmg.pushForce;
 
-            GameManager.instance.ShowText($"{dmg.damageAmount} damage", 20, Color.white, transform.position, Vector3.up * Random.Range(30, 50), 2f);
+            GameManager.instance.ShowText($"{dmg.damageAmount} damage", 35, Color.white, transform.position, Vector3.up * Random.Range(30, 50), 2f);
 
             if (life <= 0)
             {
@@ -41,6 +41,6 @@ public class Fighter : MonoBehaviour
     protected virtual void Death()
     {
         gameObject.SetActive(false);
-        GameManager.instance.ShowText("Defeated", 35, Color.black, transform.position, Vector3.zero, 3f);
+        GameManager.instance.ShowText("Defeated", 50, Color.black, transform.position, Vector3.zero, 3f);
     }
 }
