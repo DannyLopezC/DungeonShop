@@ -35,6 +35,7 @@ public class Fighter : MonoBehaviour
 
             GameManager.instance.ShowText($"{dmg.damageAmount} damage", 35, Color.white, transform.position, Vector3.up * Random.Range(30, 50), 2f);
 
+            Debug.Log($"life {life}");
             if (life <= 0)
             {
                 life = 0;
