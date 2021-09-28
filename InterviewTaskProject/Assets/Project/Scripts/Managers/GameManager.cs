@@ -9,12 +9,17 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public UIManager uIManager;
 
+    public bool inUI;
+    public bool inDialogue;
+    public bool inShop;
+
     public List<Sprite> playerSprites;
     public List<Sprite> weaponSprites;
     public List<int> weaponPrices;
 
     //referenced in inspector
     public Player player;
+    public GameObject dialoguePrefab;
 
     public FloatingTextManager ftm;
 

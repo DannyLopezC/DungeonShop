@@ -8,6 +8,7 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    #region variables
     public Button inventoryButton;
     public Image lifeBar;
 
@@ -70,6 +71,8 @@ public class UIManager : MonoBehaviour
     private Attack playerAttackComponent;
     private GameManager gm;
 
+    #endregion
+
     private void Start()
     {
         gm = GameManager.instance;
@@ -88,6 +91,105 @@ public class UIManager : MonoBehaviour
         UpdateUIValues();
     }
 
+    #region buttons
+    public void OnNextWeapon()
+    {
+        Weapon nextWeapon = playerAttackComponent.weapons[playerAttackComponent.equipped];
+        int nextId = 0;
+
+        for (int i = 0; i < playerAttackComponent.weapons.Count; i++)
+        {
+            if (playerAttackComponent.currentWeapon.id == playerAttackComponent.weapons[i].id)
+                nextId = i + 1;
+        }
+
+        //going back to first if is the last
+        Debug.Log($"next id {nextId}");
+        if (nextId >= playerAttackComponent.weapons.Count - 1) nextId = 0;
+
+        nextWeapon = playerAttackComponent.weapons[nextId];
+
+        //setting sprites
+        weaponSprite.sprite = nextWeapon.sprite;
+        playerAttackComponent.ChangeWeaponV2(nextId);
+    }
+
+    public void OnBackWeapon()
+    {
+        Weapon backWeapon = playerAttackComponent.weapons[playerAttackComponent.equipped];
+        int nextId = 0;
+
+        for (int i = 0; i < playerAttackComponent.weapons.Count; i++)
+        {
+            if (playerAttackComponent.currentWeapon.id == playerAttackComponent.weapons[i].id)
+                nextId = i - 1;
+        }
+
+        //going to last if is the first
+        if (nextId <= 0) nextId = playerAttackComponent.weapons.Count - 1;
+
+        backWeapon = playerAttackComponent.weapons[nextId];
+
+        //setting sprites
+        weaponSprite.sprite = backWeapon.sprite;
+        playerAttackComponent.ChangeWeaponV2(nextId);
+    }
+
+    public void OnNextSkin()
+    {
+        Clothes nextClothes = gm.player.clothes[gm.player.clothesId];
+
+        //going back to first if is the last
+        if (gm.player.clothesId + 1 >= gm.player.clothes.Count - 1)
+            nextClothes = gm.player.clothes[0];
+
+        //looking for next in list
+        for (int i = 0; i < gm.player.clothes.Count; i++)
+        {
+            if (gm.player.clothesId + 1 == gm.player.clothes[i].id)
+                nextClothes = gm.player.clothes[i];
+        }
+
+        //setting sprites
+        skinSprite.sprite = nextClothes.sprite;
+        gm.player.clothesId = nextClothes.id;
+    }
+
+    public void OnBackSkin()
+    {
+        Clothes nextClothes = gm.player.clothes[gm.player.clothesId];
+
+        //going to last if is the first
+        if (gm.player.clothesId - 1 < 0)
+            nextClothes = gm.player.clothes[gm.player.clothes.Count - 1];
+
+        //looking for prev in list
+        for (int i = 0; i < gm.player.clothes.Count; i++)
+        {
+            if (gm.player.clothesId - 1 == gm.player.clothes[i].id)
+                nextClothes = gm.player.clothes[i];
+        }
+
+        //setting sprites
+        skinSprite.sprite = nextClothes.sprite;
+        gm.player.clothesId = nextClothes.id;
+    }
+    #endregion
+
+    public void UpdateUIValues()
+    {
+        moneyAmount.text = gm.player.money.ToString();
+        moneyShopAmount.text = gm.player.money.ToString();
+        skinsAmount.text = gm.player.clothes.Count.ToString();
+        weaponsAmount.text = playerAttackComponent.weapons.Count.ToString();
+        damageAmount.text = playerAttackComponent.weapons[playerAttackComponent.equipped].damage.ToString();
+        forceAmount.text = playerAttackComponent.weapons[playerAttackComponent.equipped].force.ToString();
+
+        menuLifeBar.fillAmount = gm.player.life / gm.player.maxLife;
+        lifeBar.fillAmount = gm.player.life / gm.player.maxLife;
+    }
+
+    #region shop
     public void SetSellItems()
     {
         sellClothes.Clear();
@@ -264,104 +366,6 @@ public class UIManager : MonoBehaviour
         scrollBar.value = 100;
     }
 
-    #region buttons
-    public void OnNextWeapon()
-    {
-        Weapon nextWeapon = playerAttackComponent.weapons[playerAttackComponent.equipped];
-        int nextId = 0;
-
-        for (int i = 0; i < playerAttackComponent.weapons.Count; i++)
-        {
-            if (playerAttackComponent.currentWeapon.id == playerAttackComponent.weapons[i].id)
-                nextId = i + 1;
-        }
-
-        //going back to first if is the last
-        Debug.Log($"next id {nextId}");
-        if (nextId >= playerAttackComponent.weapons.Count - 1) nextId = 0;
-
-        nextWeapon = playerAttackComponent.weapons[nextId];
-
-        //setting sprites
-        weaponSprite.sprite = nextWeapon.sprite;
-        playerAttackComponent.ChangeWeaponV2(nextId);
-    }
-
-    public void OnBackWeapon()
-    {
-        Weapon backWeapon = playerAttackComponent.weapons[playerAttackComponent.equipped];
-        int nextId = 0;
-
-        for (int i = 0; i < playerAttackComponent.weapons.Count; i++)
-        {
-            if (playerAttackComponent.currentWeapon.id == playerAttackComponent.weapons[i].id)
-                nextId = i - 1;
-        }
-
-        //going to last if is the first
-        if (nextId <= 0) nextId = playerAttackComponent.weapons.Count - 1;
-
-        backWeapon = playerAttackComponent.weapons[nextId];
-
-        //setting sprites
-        weaponSprite.sprite = backWeapon.sprite;
-        playerAttackComponent.ChangeWeaponV2(nextId);
-    }
-
-    public void OnNextSkin()
-    {
-        Clothes nextClothes = gm.player.clothes[gm.player.clothesId];
-
-        //going back to first if is the last
-        if (gm.player.clothesId + 1 >= gm.player.clothes.Count - 1)
-            nextClothes = gm.player.clothes[0];
-
-        //looking for next in list
-        for (int i = 0; i < gm.player.clothes.Count; i++)
-        {
-            if (gm.player.clothesId + 1 == gm.player.clothes[i].id)
-                nextClothes = gm.player.clothes[i];
-        }
-
-        //setting sprites
-        skinSprite.sprite = nextClothes.sprite;
-        gm.player.clothesId = nextClothes.id;
-    }
-
-    public void OnBackSkin()
-    {
-        Clothes nextClothes = gm.player.clothes[gm.player.clothesId];
-
-        //going to last if is the first
-        if (gm.player.clothesId - 1 < 0)
-            nextClothes = gm.player.clothes[gm.player.clothes.Count - 1];
-
-        //looking for prev in list
-        for (int i = 0; i < gm.player.clothes.Count; i++)
-        {
-            if (gm.player.clothesId - 1 == gm.player.clothes[i].id)
-                nextClothes = gm.player.clothes[i];
-        }
-
-        //setting sprites
-        skinSprite.sprite = nextClothes.sprite;
-        gm.player.clothesId = nextClothes.id;
-    }
-    #endregion
-
-    public void UpdateUIValues()
-    {
-        moneyAmount.text = gm.player.money.ToString();
-        moneyShopAmount.text = gm.player.money.ToString();
-        skinsAmount.text = gm.player.clothes.Count.ToString();
-        weaponsAmount.text = playerAttackComponent.weapons.Count.ToString();
-        damageAmount.text = playerAttackComponent.weapons[playerAttackComponent.equipped].damage.ToString();
-        forceAmount.text = playerAttackComponent.weapons[playerAttackComponent.equipped].force.ToString();
-
-        menuLifeBar.fillAmount = gm.player.life / gm.player.maxLife;
-        lifeBar.fillAmount = gm.player.life / gm.player.maxLife;
-    }
-
     public void OnSellPanel()
     {
         buyPanel.SetActive(false);
@@ -414,6 +418,7 @@ public class UIManager : MonoBehaviour
         SetSellItems();
         SetBuyItems();
     }
+    #endregion
 
     public void OnInventory(bool open)
     {
@@ -432,6 +437,7 @@ public class UIManager : MonoBehaviour
                  });
 
             animator.SetTrigger("show");
+            gm.inUI = true;
             opened = true;
         }
         else
@@ -445,6 +451,7 @@ public class UIManager : MonoBehaviour
                 });
 
             animator.SetTrigger("hide");
+            gm.inUI = false;
             opened = false;
         }
     }

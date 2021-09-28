@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class NPC : Collidable
 {
+    public Dialogue firstDialogue;
+    public Dialogue goodbyeDialogue;
+
     protected override void OnCollide(Collider2D c)
     {
         if (c.tag == "Player")
         {
-
+            TriggerDialogue();
         }
+    }
+
+    public void TriggerDialogue()
+    {
+        FindObjectOfType<DialogueManager>().StartDialogue(firstDialogue);
     }
 }
