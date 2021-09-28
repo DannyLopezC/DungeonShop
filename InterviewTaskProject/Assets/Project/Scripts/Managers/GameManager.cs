@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public void DeselectAllSellItems(ShopItem origin) => uIManager.DeselectAllSellItems(origin);

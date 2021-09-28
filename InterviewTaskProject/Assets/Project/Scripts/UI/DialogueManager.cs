@@ -83,7 +83,6 @@ public class DialogueManager : MonoBehaviour
 
         if (goodbye)
         {
-            Debug.Log($"hide");
             yield return new WaitForSeconds(1.5f);
             animator.SetTrigger("hide");
             gm.inDialogue = false;

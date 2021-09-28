@@ -29,9 +29,13 @@ public class Attack : Collidable
 
     private Animator _animator;
 
-    protected override void Start()
+    private void Awake()
     {
         equipped = 0;
+    }
+
+    protected override void Start()
+    {
         _animator = GetComponent<Animator>();
     }
 

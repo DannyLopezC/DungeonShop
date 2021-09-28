@@ -21,6 +21,8 @@ public class Enemy : Fighter
 
     private Vector3 _moveDelta;
 
+    public float rotationThreshHold;
+
     protected override void Start()
     {
         base.Start();
@@ -94,14 +96,17 @@ public class Enemy : Fighter
         float x = objective.x > transform.position.x ? 1 : -1;
         float y = objective.y > transform.position.y ? 1 : -1;
 
+        if (x != _moveDelta.x)
+        {
+            if (x <= -rotationThreshHold) transform.localScale = Vector3.one;
+            else if (x > rotationThreshHold) transform.localScale = new Vector3(-1, 1, 1);
+        }
+
         _moveDelta = new Vector3(x, y);
 
         //push
         _moveDelta += pushDirection;
         pushDirection = Vector3.Lerp(pushDirection, Vector3.zero, pushRecoverySpeed);
-
-        if (_moveDelta.x < 0) transform.localScale = Vector3.one;
-        else if (_moveDelta.x > 0) transform.localScale = new Vector3(-1, 1, 1);
 
         transform.Translate((_moveDelta * Time.deltaTime) / 2);
     }

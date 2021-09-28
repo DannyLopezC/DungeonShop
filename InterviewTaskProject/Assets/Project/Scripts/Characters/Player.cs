@@ -14,11 +14,15 @@ public class Player : Fighter
 
     private int _clothesId;
 
+    private void Awake()
+    {
+        clothesId = 0;
+    }
+
     protected override void Start()
     {
         base.Start();
 
-        clothesId = 0;
     }
 
     public int clothesId

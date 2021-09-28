@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6317714999877164225}
   - component: {fileID: 1019239608881623789}
   - component: {fileID: 6275412873676240884}
-  m_Layer: 0
-  m_Name: enemy_
+  m_Layer: 10
+  m_Name: Enemy_
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b1aa09a7dd2804fbf54f9e68d2c388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 0
   maxLife: 40
   pushRecoverySpeed: 0.05
   triggerLength: 1

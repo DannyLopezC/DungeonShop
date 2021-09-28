@@ -5,12 +5,18 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     #region variables
+
+    [BoxGroup("HUD")]
     public Button inventoryButton;
+    [BoxGroup("HUD")]
     public Image lifeBar;
+    [BoxGroup("HUD")]
+    public TMP_Text hudMoney;
 
     [BoxGroup("Menu")]
     public GameObject menuGo;
@@ -193,13 +199,21 @@ public class UIManager : MonoBehaviour
     {
         moneyAmount.text = gm.player.money.ToString();
         moneyShopAmount.text = gm.player.money.ToString();
+        hudMoney.text = gm.player.money.ToString();
+
         skinsAmount.text = gm.player.clothes.Count.ToString();
         weaponsAmount.text = playerAttackComponent.weapons.Count.ToString();
-        damageAmount.text = playerAttackComponent.weapons[playerAttackComponent.equipped].damage.ToString();
-        forceAmount.text = playerAttackComponent.weapons[playerAttackComponent.equipped].force.ToString();
+
+        damageAmount.text = playerAttackComponent.currentWeapon.damage.ToString();
+        forceAmount.text = playerAttackComponent.currentWeapon.force.ToString();
 
         menuLifeBar.fillAmount = gm.player.life / gm.player.maxLife;
         lifeBar.fillAmount = gm.player.life / gm.player.maxLife;
+    }
+
+    public void OnReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     #region shop

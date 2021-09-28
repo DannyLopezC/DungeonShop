@@ -52,6 +52,6 @@ public class Fighter : MonoBehaviour
     protected virtual void Death()
     {
         gameObject.SetActive(false);
-        GameManager.instance.ShowText("Defeated", 50, Color.black, transform.position, Vector3.zero, 3f);
+        GameManager.instance.ShowText("Defeated", 100, Color.black, transform.position, Vector3.zero, 3f);
     }
 }
