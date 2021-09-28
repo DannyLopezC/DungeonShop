@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public UIManager uIManager;
 
+    public DialogueManager dialogueManager;
+    public Dialogue firstDialogue;
+    public Dialogue goodbyeDialogue;
+
     public bool inUI;
     public bool inDialogue;
     public bool inShop;
@@ -19,7 +23,6 @@ public class GameManager : MonoBehaviour
 
     //referenced in inspector
     public Player player;
-    public GameObject dialoguePrefab;
 
     public FloatingTextManager ftm;
 

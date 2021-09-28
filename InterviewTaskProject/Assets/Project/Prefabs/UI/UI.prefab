@@ -118,15 +118,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6062151320915421214}
-        m_MethodName: SetTrigger
-        m_Mode: 5
+      - m_Target: {fileID: 8775326399222643124}
+        m_MethodName: OnShop
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: hide
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &83758495890898150
@@ -5759,9 +5759,9 @@ MonoBehaviour:
   inventoryButton: {fileID: 8775326398473090336}
   lifeBar: {fileID: 2013655191401936192}
   menuGo: {fileID: 8775326398636839938}
-  animator: {fileID: 8240856758857143251}
-  opened: 0
-  changing: 0
+  menuOpened: 0
+  menuChanging: 0
+  menuAnimator: {fileID: 8240856758857143251}
   weaponSprite: {fileID: 5633312386510611054}
   skinSprite: {fileID: 2560687839961852923}
   moneyAmount: {fileID: 1675542981792239689}
@@ -5776,6 +5776,10 @@ MonoBehaviour:
     type: 3}
   currentShopItem: {fileID: 0}
   moneyShopAmount: {fileID: 7692793828555634550}
+  shopAnimator: {fileID: 6062151320915421214}
+  shopOpened: 0
+  shopChanging: 0
+  shopGo: {fileID: 8237543414722789128}
   availableWeapons:
   - {fileID: 11400000, guid: c1f2c32bc3e708245ae70abbbdb69ec2, type: 2}
   - {fileID: 11400000, guid: 55e92db59d6e8da439ff1b47c35474c9, type: 2}

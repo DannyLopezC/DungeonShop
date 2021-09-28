@@ -12,11 +12,14 @@ public class UIManager : MonoBehaviour
     public Button inventoryButton;
     public Image lifeBar;
 
+    [BoxGroup("Menu")]
     public GameObject menuGo;
-    public Animator animator;
-    public bool opened = false;
-    public bool changing = false;
-
+    [BoxGroup("Menu")]
+    public bool menuOpened = false;
+    [BoxGroup("Menu")]
+    public bool menuChanging = false;
+    [BoxGroup("Menu")]
+    public Animator menuAnimator;
     [BoxGroup("Menu")]
     public Image weaponSprite;
     [BoxGroup("Menu")]
@@ -42,6 +45,14 @@ public class UIManager : MonoBehaviour
     public ShopItem currentShopItem;
     [BoxGroup("Shop")]
     public TMP_Text moneyShopAmount;
+    [BoxGroup("Shop")]
+    public Animator shopAnimator;
+    [BoxGroup("Shop")]
+    public bool shopOpened = false;
+    [BoxGroup("Shop")]
+    public bool shopChanging = false;
+    [BoxGroup("Shop")]
+    public GameObject shopGo;
 
     [InlineEditor, BoxGroup("Shop/AvailableItems")]
     public List<Weapon> availableWeapons;
@@ -86,7 +97,8 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) OnInventory(!opened);
+        if (!shopOpened && !gm.inDialogue && !gm.inShop) if (Input.GetKeyDown(KeyCode.Escape)) OnInventory(!menuOpened);
+        if (shopOpened && gm.inShop) if (Input.GetKeyDown(KeyCode.Escape)) OnShop(false);
 
         UpdateUIValues();
     }
@@ -387,6 +399,8 @@ public class UIManager : MonoBehaviour
             if (playerAttackComponent.weapons.Count <= 1) return;
             Weapon w = playerAttackComponent.weapons.Find(_w => _w.id == currentShopItem.itemId);
             if (w != null) playerAttackComponent.weapons.Remove(w);
+
+            if (playerAttackComponent.weapons.Count == 1) playerAttackComponent.ChangeWeaponV2(0);
         }
         else
         {
@@ -394,6 +408,8 @@ public class UIManager : MonoBehaviour
 
             Clothes c = gm.player.clothes.Find(_c => _c.id == currentShopItem.itemId);
             if (c != null) gm.player.clothes.Remove(c);
+
+            if (gm.player.clothes.Count == 1) gm.player.ChangeClothing(0);
         }
 
         SetSellItems();
@@ -418,41 +434,79 @@ public class UIManager : MonoBehaviour
         SetSellItems();
         SetBuyItems();
     }
-    #endregion
 
-    public void OnInventory(bool open)
+    public void OnShop(bool open)
     {
-        if (changing) return;
+        if (shopChanging) return;
 
         Image buttonImage = inventoryButton.gameObject.GetComponent<Image>();
 
         if (open)
         {
-            changing = true;
+            shopChanging = true;
             buttonImage.DOFade(0, 0.2f)
                  .OnComplete(() =>
                  {
                      inventoryButton.gameObject.SetActive(!open);
-                     changing = false;
+                     shopChanging = false;
                  });
 
-            animator.SetTrigger("show");
-            gm.inUI = true;
-            opened = true;
+            shopAnimator.SetTrigger("show");
+            gm.inShop = true;
+            shopOpened = true;
         }
         else
         {
-            changing = true;
+            shopChanging = true;
             buttonImage.DOFade(100, 0.2f)
                 .OnComplete(() =>
                 {
                     inventoryButton.gameObject.SetActive(!open);
-                    changing = false;
+                    shopChanging = false;
                 });
 
-            animator.SetTrigger("hide");
+            shopAnimator.SetTrigger("hide");
+            gm.inShop = false;
+            shopOpened = false;
+            Debug.Log($"hello");
+            gm.dialogueManager.EndDialogue(false);
+        }
+    }
+    #endregion
+
+    public void OnInventory(bool open)
+    {
+        if (menuChanging) return;
+
+        Image buttonImage = inventoryButton.gameObject.GetComponent<Image>();
+
+        if (open)
+        {
+            menuChanging = true;
+            buttonImage.DOFade(0, 0.2f)
+                 .OnComplete(() =>
+                 {
+                     inventoryButton.gameObject.SetActive(!open);
+                     menuChanging = false;
+                 });
+
+            menuAnimator.SetTrigger("show");
+            gm.inUI = true;
+            menuOpened = true;
+        }
+        else
+        {
+            menuChanging = true;
+            buttonImage.DOFade(100, 0.2f)
+                .OnComplete(() =>
+                {
+                    inventoryButton.gameObject.SetActive(!open);
+                    menuChanging = false;
+                });
+
+            menuAnimator.SetTrigger("hide");
             gm.inUI = false;
-            opened = false;
+            menuOpened = false;
         }
     }
 }

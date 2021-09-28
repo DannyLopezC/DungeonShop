@@ -17,6 +17,6 @@ public class NPC : Collidable
 
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(firstDialogue);
+        GameManager.instance.dialogueManager.StartDialogue(GameManager.instance.firstDialogue);
     }
 }

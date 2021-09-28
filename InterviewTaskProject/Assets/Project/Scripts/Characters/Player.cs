@@ -24,7 +24,7 @@ public class Player : Fighter
 
     private void FixedUpdate()
     {
-        if (!GameManager.instance.inUI || !GameManager.instance.inDialogue || !GameManager.instance.inShop) Movement();
+        if (!GameManager.instance.inUI && !GameManager.instance.inDialogue && !GameManager.instance.inShop) Movement();
     }
 
     private void Movement()
