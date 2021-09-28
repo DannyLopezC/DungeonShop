@@ -28,11 +28,30 @@ public class UIManager : MonoBehaviour
     public TMP_Text weaponsAmount;
     [BoxGroup("Menu")]
     public Image menuLifeBar;
+    [BoxGroup("Menu")]
+    public TMP_Text damageAmount;
+    [BoxGroup("Menu")]
+    public TMP_Text forceAmount;
+
+    public GameObject shopWeaponPrefab;
+    public GameObject shopClothesPrefab;
+    //public ShopItem
+
+    [InlineEditor]
+    public List<Weapon> availableWeapons;
+    [InlineEditor]
+    public List<Clothes> availableClothes;
+
+    [InlineEditor]
+    public List<ShopItem> sellClothes;
+    [InlineEditor]
+    public List<ShopItem> sellWeapons;
+    public Transform sellContent;
+
+    public ScrollRect scrollRect;
 
     private Attack playerAttackComponent;
     private GameManager gm;
-
-    private const float fullLifeBar = 24f;
 
     private void Start()
     {
@@ -40,14 +59,85 @@ public class UIManager : MonoBehaviour
         playerAttackComponent = gm.player.GetComponentInChildren<Attack>();
         weaponSprite.sprite = playerAttackComponent.weapons[playerAttackComponent.equipped].sprite;
         UpdateUIValues();
+
+        SetSellItems();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) OnInventory(!opened);
 
-        menuLifeBar.fillAmount = gm.player.life / gm.player.maxLife;
-        lifeBar.fillAmount = gm.player.life / gm.player.maxLife;
+        UpdateUIValues();
+    }
+
+    public void SetSellItems()
+    {
+        //set skins to sell
+        for (int i = 0; i < gm.player.clothes.Count; i++)
+        {
+            ShopItem sp = Instantiate(shopClothesPrefab, sellContent).GetComponent<ShopItem>();
+            sp.price.text = gm.player.clothes[i].price.ToString() + "$";
+
+            sp.weaponImage.sprite = gm.player.clothes[i].sprite;
+
+            sellClothes.Add(sp);
+        }
+
+        //set weapons to sell
+        for (int i = 0; i < playerAttackComponent.weapons.Count; i++)
+        {
+            ShopItem sp = Instantiate(shopWeaponPrefab, sellContent).GetComponent<ShopItem>();
+            sp.damage.text = playerAttackComponent.weapons[i].damage.ToString();
+            sp.force.text = playerAttackComponent.weapons[i].force.ToString();
+            sp.price.text = playerAttackComponent.weapons[i].price.ToString() + "$";
+
+            sp.weaponImage.sprite = playerAttackComponent.weapons[i].sprite;
+
+            sellClothes.Add(sp);
+        }
+
+        for (int i = 0; i < sellClothes.Count; i++)
+        {
+            sellClothes[i].id = i;
+        }
+
+
+    }
+
+    public void DeselectAllSellItems(ShopItem origin)
+    {
+        for (int i = 0; i < sellClothes.Count; i++)
+        {
+            if (sellClothes[i].id != origin.id)
+            {
+                sellClothes[i].selected = false;
+            }
+        }
+
+        for (int i = 0; i < sellWeapons.Count; i++)
+        {
+            if (sellClothes[i].id != origin.id)
+            {
+                sellWeapons[i].selected = false;
+            }
+        }
+    }
+
+    public void SetBuyItems()
+    {
+        List<Clothes> clothesToAdd = availableClothes;
+
+        //add items to the sell list
+        for (int i = 0; i < gm.player.clothes.Count; i++)
+        {
+            for (int j = 0; j < gm.player.clothes.Count; j++)
+            {
+                if (gm.player.clothes[i] == clothesToAdd[j])
+                {
+                    clothesToAdd.Remove(clothesToAdd[j]);
+                }
+            }
+        }
     }
 
     #region buttons
@@ -137,6 +227,11 @@ public class UIManager : MonoBehaviour
         moneyAmount.text = gm.player.money.ToString();
         skinsAmount.text = gm.player.clothes.Count.ToString();
         weaponsAmount.text = playerAttackComponent.weapons.Count.ToString();
+        damageAmount.text = playerAttackComponent.weapons[playerAttackComponent.equipped].damage.ToString();
+        forceAmount.text = playerAttackComponent.weapons[playerAttackComponent.equipped].force.ToString();
+
+        menuLifeBar.fillAmount = gm.player.life / gm.player.maxLife;
+        lifeBar.fillAmount = gm.player.life / gm.player.maxLife;
     }
 
     public void OnInventory(bool open)
@@ -148,13 +243,12 @@ public class UIManager : MonoBehaviour
         if (open)
         {
             changing = true;
-            UpdateUIValues();
             buttonImage.DOFade(0, 0.2f)
-                .OnComplete(() =>
-                {
-                    inventoryButton.gameObject.SetActive(!open);
-                    changing = false;
-                });
+                 .OnComplete(() =>
+                 {
+                     inventoryButton.gameObject.SetActive(!open);
+                     changing = false;
+                 });
 
             animator.SetTrigger("show");
             opened = true;

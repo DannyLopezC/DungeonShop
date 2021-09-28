@@ -101,12 +101,10 @@ MonoBehaviour:
   weapons:
   - {fileID: 11400000, guid: c1f2c32bc3e708245ae70abbbdb69ec2, type: 2}
   - {fileID: 11400000, guid: 55e92db59d6e8da439ff1b47c35474c9, type: 2}
-  - {fileID: 11400000, guid: 8d516fbcdc7993c42b26e4ec7814f454, type: 2}
   - {fileID: 11400000, guid: 0e51354d6fd79854a8adba9c3d25b557, type: 2}
   - {fileID: 11400000, guid: 54bea8899a4484d4db3c5465896dba0a, type: 2}
   - {fileID: 11400000, guid: 06a4d58b03ba5434ab38df4e864e777e, type: 2}
   - {fileID: 11400000, guid: b745c8859906a104ebd2e6472b5b5613, type: 2}
-  - {fileID: 11400000, guid: 700d7877ed02534438c56849c3feb293, type: 2}
   - {fileID: 11400000, guid: e26111ca1b48a714da83743aa0bb5bcb, type: 2}
   - {fileID: 11400000, guid: bf9de92fe38d5054daa1cfc76a761e38, type: 2}
   - {fileID: 11400000, guid: 4620966913d1be44fb007f6e1a9a517e, type: 2}
@@ -177,7 +175,7 @@ GameObject:
   - component: {fileID: 9155277413862930975}
   - component: {fileID: 2221593803991166238}
   m_Layer: 10
-  m_Name: player_
+  m_Name: Player_
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,7 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beedce4ba37823746abdb56161615f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 0
   maxLife: 20
   pushRecoverySpeed: 0.1
   money: 0

@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: player_2
   m_EditorClassIdentifier: 
   id: 2
-  damage: 0
-  force: 0
+  price: 8
   sprite: {fileID: -6789437926329734961, guid: 950bb567f5a60394782d3043bdcea73d, type: 3}

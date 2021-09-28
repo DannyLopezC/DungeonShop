@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public UIManager uIManager;
 
     public List<Sprite> playerSprites;
     public List<Sprite> weaponSprites;
@@ -29,6 +31,8 @@ public class GameManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
+    public void DeselectAllSellItems(ShopItem origin) => uIManager.DeselectAllSellItems(origin);
 
     [Button]
     public void ChangeWeapon(int id) => player.GetComponentInChildren<Attack>().equipped = id;
