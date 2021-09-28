@@ -33,22 +33,39 @@ public class UIManager : MonoBehaviour
     [BoxGroup("Menu")]
     public TMP_Text forceAmount;
 
+    [BoxGroup("Shop")]
     public GameObject shopWeaponPrefab;
+    [BoxGroup("Shop")]
     public GameObject shopClothesPrefab;
-    //public ShopItem
+    [BoxGroup("Shop")]
+    public ShopItem currentShopItem;
+    [BoxGroup("Shop")]
+    public TMP_Text moneyShopAmount;
 
-    [InlineEditor]
+    [InlineEditor, BoxGroup("Shop/AvailableItems")]
     public List<Weapon> availableWeapons;
-    [InlineEditor]
+    [InlineEditor, BoxGroup("Shop/AvailableItems")]
     public List<Clothes> availableClothes;
 
-    [InlineEditor]
+    [InlineEditor, BoxGroup("Shop/Selling")]
     public List<ShopItem> sellClothes;
-    [InlineEditor]
+    [InlineEditor, BoxGroup("Shop/Selling")]
     public List<ShopItem> sellWeapons;
+    [BoxGroup("Shop/Selling")]
     public Transform sellContent;
+    [BoxGroup("Shop/Selling")]
+    public GameObject sellPanel;
 
-    public ScrollRect scrollRect;
+    [InlineEditor, BoxGroup("Shop/Buying")]
+    public List<ShopItem> buyClothes;
+    [InlineEditor, BoxGroup("Shop/Buying")]
+    public List<ShopItem> buyWeapons;
+    [BoxGroup("Shop/Buying")]
+    public Transform buyContent;
+    [BoxGroup("Shop/Buying")]
+    public GameObject buyPanel;
+
+    public Scrollbar scrollBar;
 
     private Attack playerAttackComponent;
     private GameManager gm;
@@ -61,6 +78,7 @@ public class UIManager : MonoBehaviour
         UpdateUIValues();
 
         SetSellItems();
+        SetBuyItems();
     }
 
     private void Update()
@@ -72,11 +90,21 @@ public class UIManager : MonoBehaviour
 
     public void SetSellItems()
     {
+        sellClothes.Clear();
+        sellWeapons.Clear();
+
+        for (int i = 0; i < sellContent.childCount; i++)
+        {
+            Destroy(sellContent.GetChild(i).gameObject);
+        }
+
         //set skins to sell
         for (int i = 0; i < gm.player.clothes.Count; i++)
         {
             ShopItem sp = Instantiate(shopClothesPrefab, sellContent).GetComponent<ShopItem>();
             sp.price.text = gm.player.clothes[i].price.ToString() + "$";
+            sp.itemId = gm.player.clothes[i].id;
+            sp.isWeapon = false;
 
             sp.weaponImage.sprite = gm.player.clothes[i].sprite;
 
@@ -90,10 +118,12 @@ public class UIManager : MonoBehaviour
             sp.damage.text = playerAttackComponent.weapons[i].damage.ToString();
             sp.force.text = playerAttackComponent.weapons[i].force.ToString();
             sp.price.text = playerAttackComponent.weapons[i].price.ToString() + "$";
+            sp.itemId = playerAttackComponent.weapons[i].id;
+            sp.isWeapon = true;
 
             sp.weaponImage.sprite = playerAttackComponent.weapons[i].sprite;
 
-            sellClothes.Add(sp);
+            sellWeapons.Add(sp);
         }
 
         for (int i = 0; i < sellClothes.Count; i++)
@@ -101,11 +131,19 @@ public class UIManager : MonoBehaviour
             sellClothes[i].id = i;
         }
 
+        for (int i = 0; i < sellWeapons.Count; i++)
+        {
+            sellWeapons[i].id = sellClothes.Count + i;
+        }
 
+        scrollBar.value = 100;
     }
 
     public void DeselectAllSellItems(ShopItem origin)
     {
+        currentShopItem = origin;
+
+        //de activate sell
         for (int i = 0; i < sellClothes.Count; i++)
         {
             if (sellClothes[i].id != origin.id)
@@ -116,21 +154,51 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < sellWeapons.Count; i++)
         {
-            if (sellClothes[i].id != origin.id)
+            if (sellWeapons[i].id != origin.id)
             {
                 sellWeapons[i].selected = false;
+            }
+        }
+
+        //de activate buy
+        for (int i = 0; i < buyClothes.Count; i++)
+        {
+            if (buyClothes[i].id != origin.id)
+            {
+                buyClothes[i].selected = false;
+            }
+        }
+
+        for (int i = 0; i < buyWeapons.Count; i++)
+        {
+            if (buyWeapons[i].id != origin.id)
+            {
+                buyWeapons[i].selected = false;
             }
         }
     }
 
     public void SetBuyItems()
     {
-        List<Clothes> clothesToAdd = availableClothes;
+        buyClothes.Clear();
+        buyWeapons.Clear();
+
+        for (int i = 0; i < buyContent.childCount; i++)
+        {
+            Destroy(buyContent.GetChild(i).gameObject);
+        }
+
+        List<Clothes> clothesToAdd = new List<Clothes>();
+
+        for (int i = 0; i < availableClothes.Count; i++)
+        {
+            clothesToAdd.Add(availableClothes[i]);
+        }
 
         //add items to the sell list
         for (int i = 0; i < gm.player.clothes.Count; i++)
         {
-            for (int j = 0; j < gm.player.clothes.Count; j++)
+            for (int j = 0; j < clothesToAdd.Count; j++)
             {
                 if (gm.player.clothes[i] == clothesToAdd[j])
                 {
@@ -138,47 +206,106 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
+
+        for (int i = 0; i < clothesToAdd.Count; i++)
+        {
+            ShopItem sp = Instantiate(shopClothesPrefab, buyContent).GetComponent<ShopItem>();
+            sp.price.text = clothesToAdd[i].price.ToString() + "$";
+            sp.itemId = clothesToAdd[i].id;
+            sp.isWeapon = false;
+
+            sp.weaponImage.sprite = clothesToAdd[i].sprite;
+
+            buyClothes.Add(sp);
+        }
+
+        List<Weapon> weaponsToAdd = new List<Weapon>();
+
+        for (int i = 0; i < availableWeapons.Count; i++)
+        {
+            weaponsToAdd.Add(availableWeapons[i]);
+        }
+
+        for (int i = 0; i < playerAttackComponent.weapons.Count; i++)
+        {
+            for (int j = 0; j < weaponsToAdd.Count; j++)
+            {
+                if (playerAttackComponent.weapons[i] == weaponsToAdd[j])
+                {
+                    weaponsToAdd.Remove(weaponsToAdd[j]);
+                }
+            }
+        }
+
+        for (int i = 0; i < weaponsToAdd.Count; i++)
+        {
+            ShopItem sp = Instantiate(shopWeaponPrefab, buyContent).GetComponent<ShopItem>();
+            sp.damage.text = weaponsToAdd[i].damage.ToString();
+            sp.force.text = weaponsToAdd[i].force.ToString();
+            sp.price.text = weaponsToAdd[i].price.ToString() + "$";
+            sp.itemId = weaponsToAdd[i].id;
+            sp.isWeapon = true;
+
+            sp.weaponImage.sprite = weaponsToAdd[i].sprite;
+
+            buyWeapons.Add(sp);
+        }
+
+        for (int i = 0; i < buyClothes.Count; i++)
+        {
+            buyClothes[i].id = i;
+        }
+
+        for (int i = 0; i < buyWeapons.Count; i++)
+        {
+            buyWeapons[i].id = buyClothes.Count + i;
+        }
+
+        scrollBar.value = 100;
     }
 
     #region buttons
     public void OnNextWeapon()
     {
         Weapon nextWeapon = playerAttackComponent.weapons[playerAttackComponent.equipped];
+        int nextId = 0;
 
-        //going back to first if is the last
-        if (playerAttackComponent.equipped + 1 >= playerAttackComponent.weapons.Count)
-            nextWeapon = playerAttackComponent.weapons[0];
-
-        //looking for next in list
         for (int i = 0; i < playerAttackComponent.weapons.Count; i++)
         {
-            if (playerAttackComponent.equipped + 1 == playerAttackComponent.weapons[i].id)
-                nextWeapon = playerAttackComponent.weapons[i];
+            if (playerAttackComponent.currentWeapon.id == playerAttackComponent.weapons[i].id)
+                nextId = i + 1;
         }
+
+        //going back to first if is the last
+        Debug.Log($"next id {nextId}");
+        if (nextId >= playerAttackComponent.weapons.Count - 1) nextId = 0;
+
+        nextWeapon = playerAttackComponent.weapons[nextId];
 
         //setting sprites
         weaponSprite.sprite = nextWeapon.sprite;
-        playerAttackComponent.equipped = nextWeapon.id;
+        playerAttackComponent.ChangeWeaponV2(nextId);
     }
 
     public void OnBackWeapon()
     {
         Weapon backWeapon = playerAttackComponent.weapons[playerAttackComponent.equipped];
+        int nextId = 0;
 
-        //going to last if is the first
-        if (playerAttackComponent.equipped - 1 < 0)
-            backWeapon = playerAttackComponent.weapons[playerAttackComponent.weapons.Count - 1];
-
-        //looking for prev in list
         for (int i = 0; i < playerAttackComponent.weapons.Count; i++)
         {
-            if (playerAttackComponent.equipped - 1 == playerAttackComponent.weapons[i].id)
-                backWeapon = playerAttackComponent.weapons[i];
+            if (playerAttackComponent.currentWeapon.id == playerAttackComponent.weapons[i].id)
+                nextId = i - 1;
         }
+
+        //going to last if is the first
+        if (nextId <= 0) nextId = playerAttackComponent.weapons.Count - 1;
+
+        backWeapon = playerAttackComponent.weapons[nextId];
 
         //setting sprites
         weaponSprite.sprite = backWeapon.sprite;
-        playerAttackComponent.equipped = backWeapon.id;
+        playerAttackComponent.ChangeWeaponV2(nextId);
     }
 
     public void OnNextSkin()
@@ -225,6 +352,7 @@ public class UIManager : MonoBehaviour
     public void UpdateUIValues()
     {
         moneyAmount.text = gm.player.money.ToString();
+        moneyShopAmount.text = gm.player.money.ToString();
         skinsAmount.text = gm.player.clothes.Count.ToString();
         weaponsAmount.text = playerAttackComponent.weapons.Count.ToString();
         damageAmount.text = playerAttackComponent.weapons[playerAttackComponent.equipped].damage.ToString();
@@ -232,6 +360,59 @@ public class UIManager : MonoBehaviour
 
         menuLifeBar.fillAmount = gm.player.life / gm.player.maxLife;
         lifeBar.fillAmount = gm.player.life / gm.player.maxLife;
+    }
+
+    public void OnSellPanel()
+    {
+        buyPanel.SetActive(false);
+        sellPanel.SetActive(true);
+    }
+
+    public void OnBuyPanel()
+    {
+        buyPanel.SetActive(true);
+        sellPanel.SetActive(false);
+    }
+
+    public void OnSell()
+    {
+        if (currentShopItem == null) return;
+
+        if (currentShopItem.isWeapon)
+        {
+            if (playerAttackComponent.weapons.Count <= 1) return;
+            Weapon w = playerAttackComponent.weapons.Find(_w => _w.id == currentShopItem.itemId);
+            if (w != null) playerAttackComponent.weapons.Remove(w);
+        }
+        else
+        {
+            if (gm.player.clothes.Count <= 1) return;
+
+            Clothes c = gm.player.clothes.Find(_c => _c.id == currentShopItem.itemId);
+            if (c != null) gm.player.clothes.Remove(c);
+        }
+
+        SetSellItems();
+        SetBuyItems();
+    }
+
+    public void OnBuy()
+    {
+        if (currentShopItem == null) return;
+
+        if (currentShopItem.isWeapon)
+        {
+            Weapon W = availableWeapons.Find(_w => _w.id == currentShopItem.itemId);
+            if (W != null) playerAttackComponent.weapons.Add(W);
+        }
+        else
+        {
+            Clothes c = availableClothes.Find(_c => _c.id == currentShopItem.itemId);
+            if (c != null) gm.player.clothes.Add(c);
+        }
+
+        SetSellItems();
+        SetBuyItems();
     }
 
     public void OnInventory(bool open)

@@ -97,25 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43bfd082bba811469a8657495ab1026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeapon: {fileID: 0}
   spriteRenderer: {fileID: 8799944963513058649}
   weapons:
-  - {fileID: 11400000, guid: c1f2c32bc3e708245ae70abbbdb69ec2, type: 2}
-  - {fileID: 11400000, guid: 55e92db59d6e8da439ff1b47c35474c9, type: 2}
-  - {fileID: 11400000, guid: 0e51354d6fd79854a8adba9c3d25b557, type: 2}
-  - {fileID: 11400000, guid: 54bea8899a4484d4db3c5465896dba0a, type: 2}
-  - {fileID: 11400000, guid: 06a4d58b03ba5434ab38df4e864e777e, type: 2}
-  - {fileID: 11400000, guid: b745c8859906a104ebd2e6472b5b5613, type: 2}
-  - {fileID: 11400000, guid: e26111ca1b48a714da83743aa0bb5bcb, type: 2}
-  - {fileID: 11400000, guid: bf9de92fe38d5054daa1cfc76a761e38, type: 2}
-  - {fileID: 11400000, guid: 4620966913d1be44fb007f6e1a9a517e, type: 2}
-  - {fileID: 11400000, guid: 28242b077456ad74cbcbef4bf15ba4c8, type: 2}
-  - {fileID: 11400000, guid: 4b0f05dc1dd3df24b9c647e5928b53f4, type: 2}
-  - {fileID: 11400000, guid: 55ce1e850157f834683b3ce29a3328cc, type: 2}
-  - {fileID: 11400000, guid: 76b39a18700dc554da1127e7f77b16b3, type: 2}
-  - {fileID: 11400000, guid: d4e5cd7c896df32469c51716c17e22e7, type: 2}
-  - {fileID: 11400000, guid: 8efecd9e5f5a17d40a30a86b24c97de8, type: 2}
   - {fileID: 11400000, guid: 208e44d7585d37948ae6151abfff3d67, type: 2}
-  - {fileID: 11400000, guid: f49dc6802cfd4a1469d5eccb19541245, type: 2}
 --- !u!61 &3056316620873385663
 BoxCollider2D:
   m_ObjectHideFlags: 0

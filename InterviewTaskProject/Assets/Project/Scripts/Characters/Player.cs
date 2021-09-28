@@ -17,7 +17,7 @@ public class Player : Fighter
         get { return _clothesId; }
         set
         {
-            _clothesId = value;
+            _clothesId = Mathf.Clamp(value, 0, clothes.Count - 1);
             ChangeClothing(_clothesId);
         }
     }

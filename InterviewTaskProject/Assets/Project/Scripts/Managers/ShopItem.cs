@@ -14,7 +14,10 @@ public class ShopItem : MonoBehaviour
     public Image selectedImage;
     public Image weaponImage;
 
+    public bool isWeapon;
+
     public int id;
+    public int itemId;
 
     private bool _selected;
 

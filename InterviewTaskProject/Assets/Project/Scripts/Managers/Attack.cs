@@ -13,12 +13,12 @@ public class Attack : Collidable
         get { return _equipped; }
         set
         {
-            _equipped = value;
+            _equipped = Mathf.Clamp(value, 0, weapons.Count - 1);
             ChangeWeapon(_equipped);
         }
     }
 
-    private Weapon _currentWeapon;
+    public Weapon currentWeapon;
     public SpriteRenderer spriteRenderer;
 
     [InlineEditor]
@@ -51,7 +51,7 @@ public class Attack : Collidable
     {
         if (c.tag == "Enemy")
         {
-            Damage dmg = new Damage(transform.position, _currentWeapon.damage, _currentWeapon.force);
+            Damage dmg = new Damage(transform.position, currentWeapon.damage, currentWeapon.force);
 
             c.SendMessage("ReceiveDamage", dmg);
         }
@@ -64,16 +64,16 @@ public class Attack : Collidable
 
     public void ChangeWeapon(int equip)
     {
-        _currentWeapon = weapons.Find(w => w.id == Mathf.Clamp(equip, 0, weapons.Count - 1));
+        currentWeapon = weapons.Find(w => w.id == equip);
 
-        if (_currentWeapon == null) _currentWeapon = weapons[0];
+        if (currentWeapon == null) currentWeapon = weapons[0];
 
-        spriteRenderer.sprite = _currentWeapon.sprite;
+        spriteRenderer.sprite = currentWeapon.sprite;
     }
 
-    [Button]
-    public void SetIds()
+    public void ChangeWeaponV2(int id)
     {
-        for (int i = 0; i < weapons.Count; i++) weapons[i].id = i;
+        currentWeapon = weapons[id];
+        spriteRenderer.sprite = currentWeapon.sprite;
     }
 }
