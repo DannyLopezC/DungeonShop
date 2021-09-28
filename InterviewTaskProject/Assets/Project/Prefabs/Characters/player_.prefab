@@ -198,6 +198,8 @@ MonoBehaviour:
   money: 0
   clothes:
   - {fileID: 11400000, guid: 57b51e7335b99b44fbf379d1bd14f12c, type: 2}
+  currentClothes: {fileID: 0}
+  spriteRenderer: {fileID: 9155277413862930961}
 --- !u!212 &9155277413862930961
 SpriteRenderer:
   m_ObjectHideFlags: 0

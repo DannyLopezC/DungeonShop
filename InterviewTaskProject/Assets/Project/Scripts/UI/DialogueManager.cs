@@ -83,6 +83,7 @@ public class DialogueManager : MonoBehaviour
 
         if (goodbye)
         {
+            Debug.Log($"hide");
             yield return new WaitForSeconds(1.5f);
             animator.SetTrigger("hide");
             gm.inDialogue = false;
@@ -100,7 +101,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            animator.SetTrigger("show");
+            if (!gm.inDialogue) animator.SetTrigger("show");
             string s = gm.goodbyeDialogue.sentences[Random.Range(0, gm.goodbyeDialogue.sentences.Count - 1)];
             StopAllCoroutines();
             StartCoroutine(Type(s, true));

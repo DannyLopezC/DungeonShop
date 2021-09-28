@@ -11,6 +11,8 @@ public class ShopItem : MonoBehaviour
     public TMP_Text force;
     public TMP_Text price;
 
+    public int priceNum;
+
     public Image selectedImage;
     public Image weaponImage;
 
@@ -20,11 +22,6 @@ public class ShopItem : MonoBehaviour
     public int itemId;
 
     private bool _selected;
-
-    public void Start()
-    {
-
-    }
 
     public bool selected
     {

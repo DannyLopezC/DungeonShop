@@ -9,8 +9,17 @@ public class Player : Fighter
     public int money;
 
     public List<Clothes> clothes;
+    public Clothes currentClothes;
+    public SpriteRenderer spriteRenderer;
 
     private int _clothesId;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        clothesId = 0;
+    }
 
     public int clothesId
     {
@@ -49,7 +58,20 @@ public class Player : Fighter
         transform.Translate(_moveDelta * Time.deltaTime);
     }
 
-    public void ChangeClothing(int id) => GetComponent<SpriteRenderer>().sprite = clothes.Find(w => w.id == Mathf.Clamp(id, 0, clothes.Count - 1)).sprite;
+    public void ChangeClothing(int id)
+    {
+        currentClothes = clothes.Find(w => w.id == id);
+
+        if (currentClothes == null) currentClothes = clothes[0];
+
+        spriteRenderer.sprite = currentClothes.sprite;
+    }
+
+    public void ChangeClothingV2(int id)
+    {
+        currentClothes = clothes[id];
+        spriteRenderer.sprite = currentClothes.sprite;
+    }
 
     protected override void Death()
     {

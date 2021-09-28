@@ -116,8 +116,7 @@ public class UIManager : MonoBehaviour
         }
 
         //going back to first if is the last
-        Debug.Log($"next id {nextId}");
-        if (nextId >= playerAttackComponent.weapons.Count - 1) nextId = 0;
+        if (nextId > playerAttackComponent.weapons.Count - 1) nextId = 0;
 
         nextWeapon = playerAttackComponent.weapons[nextId];
 
@@ -138,7 +137,7 @@ public class UIManager : MonoBehaviour
         }
 
         //going to last if is the first
-        if (nextId <= 0) nextId = playerAttackComponent.weapons.Count - 1;
+        if (nextId < 0) nextId = playerAttackComponent.weapons.Count - 1;
 
         backWeapon = playerAttackComponent.weapons[nextId];
 
@@ -150,41 +149,43 @@ public class UIManager : MonoBehaviour
     public void OnNextSkin()
     {
         Clothes nextClothes = gm.player.clothes[gm.player.clothesId];
+        int nextId = 0;
 
-        //going back to first if is the last
-        if (gm.player.clothesId + 1 >= gm.player.clothes.Count - 1)
-            nextClothes = gm.player.clothes[0];
-
-        //looking for next in list
         for (int i = 0; i < gm.player.clothes.Count; i++)
         {
-            if (gm.player.clothesId + 1 == gm.player.clothes[i].id)
-                nextClothes = gm.player.clothes[i];
+            if (gm.player.currentClothes.id == gm.player.clothes[i].id)
+                nextId = i + 1;
         }
+
+        //going back to first if is the last
+        if (nextId > gm.player.clothes.Count - 1) nextId = 0;
+
+        nextClothes = gm.player.clothes[nextId];
 
         //setting sprites
         skinSprite.sprite = nextClothes.sprite;
-        gm.player.clothesId = nextClothes.id;
+        gm.player.ChangeClothingV2(nextId);
     }
 
     public void OnBackSkin()
     {
-        Clothes nextClothes = gm.player.clothes[gm.player.clothesId];
+        Clothes backClothes = gm.player.clothes[gm.player.clothesId];
+        int nextId = 0;
 
-        //going to last if is the first
-        if (gm.player.clothesId - 1 < 0)
-            nextClothes = gm.player.clothes[gm.player.clothes.Count - 1];
-
-        //looking for prev in list
         for (int i = 0; i < gm.player.clothes.Count; i++)
         {
-            if (gm.player.clothesId - 1 == gm.player.clothes[i].id)
-                nextClothes = gm.player.clothes[i];
+            if (gm.player.currentClothes.id == gm.player.clothes[i].id)
+                nextId = i - 1;
         }
 
+        //going to last if is the first
+        if (nextId < 0) nextId = gm.player.clothes.Count - 1;
+
+        backClothes = gm.player.clothes[nextId];
+
         //setting sprites
-        skinSprite.sprite = nextClothes.sprite;
-        gm.player.clothesId = nextClothes.id;
+        skinSprite.sprite = backClothes.sprite;
+        gm.player.ChangeClothingV2(nextId);
     }
     #endregion
 
@@ -217,6 +218,7 @@ public class UIManager : MonoBehaviour
         {
             ShopItem sp = Instantiate(shopClothesPrefab, sellContent).GetComponent<ShopItem>();
             sp.price.text = gm.player.clothes[i].price.ToString() + "$";
+            sp.priceNum = gm.player.clothes[i].price;
             sp.itemId = gm.player.clothes[i].id;
             sp.isWeapon = false;
 
@@ -232,6 +234,7 @@ public class UIManager : MonoBehaviour
             sp.damage.text = playerAttackComponent.weapons[i].damage.ToString();
             sp.force.text = playerAttackComponent.weapons[i].force.ToString();
             sp.price.text = playerAttackComponent.weapons[i].price.ToString() + "$";
+            sp.priceNum = playerAttackComponent.weapons[i].price;
             sp.itemId = playerAttackComponent.weapons[i].id;
             sp.isWeapon = true;
 
@@ -325,6 +328,7 @@ public class UIManager : MonoBehaviour
         {
             ShopItem sp = Instantiate(shopClothesPrefab, buyContent).GetComponent<ShopItem>();
             sp.price.text = clothesToAdd[i].price.ToString() + "$";
+            sp.priceNum = clothesToAdd[i].price;
             sp.itemId = clothesToAdd[i].id;
             sp.isWeapon = false;
 
@@ -357,6 +361,7 @@ public class UIManager : MonoBehaviour
             sp.damage.text = weaponsToAdd[i].damage.ToString();
             sp.force.text = weaponsToAdd[i].force.ToString();
             sp.price.text = weaponsToAdd[i].price.ToString() + "$";
+            sp.priceNum = weaponsToAdd[i].price;
             sp.itemId = weaponsToAdd[i].id;
             sp.isWeapon = true;
 
@@ -396,7 +401,11 @@ public class UIManager : MonoBehaviour
 
         if (currentShopItem.isWeapon)
         {
-            if (playerAttackComponent.weapons.Count <= 1) return;
+            if (playerAttackComponent.weapons.Count <= 1)
+            {
+                gm.ShowText($"You have only one item of this type", 50, Color.yellow, gm.player.transform.position, Vector3.up * Random.Range(30, 50), 2f);
+                return;
+            }
             Weapon w = playerAttackComponent.weapons.Find(_w => _w.id == currentShopItem.itemId);
             if (w != null) playerAttackComponent.weapons.Remove(w);
 
@@ -404,7 +413,11 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            if (gm.player.clothes.Count <= 1) return;
+            if (gm.player.clothes.Count <= 1)
+            {
+                gm.ShowText($"You have only one item of this type", 50, Color.yellow, gm.player.transform.position, Vector3.up * Random.Range(30, 50), 2f);
+                return;
+            }
 
             Clothes c = gm.player.clothes.Find(_c => _c.id == currentShopItem.itemId);
             if (c != null) gm.player.clothes.Remove(c);
@@ -414,11 +427,19 @@ public class UIManager : MonoBehaviour
 
         SetSellItems();
         SetBuyItems();
+
+        gm.player.money += currentShopItem.priceNum;
+        gm.ShowText($"+{currentShopItem.priceNum} gold", 50, Color.yellow, gm.player.transform.position, Vector3.up * Random.Range(30, 50), 2f);
     }
 
     public void OnBuy()
     {
         if (currentShopItem == null) return;
+        if (gm.player.money < currentShopItem.priceNum)
+        {
+            gm.ShowText("You have no gold", 50, Color.yellow, gm.player.transform.position, Vector3.up * Random.Range(30, 50), 2f);
+            return;
+        }
 
         if (currentShopItem.isWeapon)
         {
@@ -433,6 +454,9 @@ public class UIManager : MonoBehaviour
 
         SetSellItems();
         SetBuyItems();
+
+        gm.player.money -= currentShopItem.priceNum;
+        gm.ShowText($"-{currentShopItem.priceNum} gold", 50, Color.yellow, gm.player.transform.position, Vector3.up * Random.Range(30, 50), 2f);
     }
 
     public void OnShop(bool open)
@@ -468,7 +492,6 @@ public class UIManager : MonoBehaviour
             shopAnimator.SetTrigger("hide");
             gm.inShop = false;
             shopOpened = false;
-            Debug.Log($"hello");
             gm.dialogueManager.EndDialogue(false);
         }
     }
