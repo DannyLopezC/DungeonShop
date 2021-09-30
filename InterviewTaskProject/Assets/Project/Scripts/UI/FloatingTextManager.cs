@@ -77,6 +77,8 @@ public class FloatingTextManager : MonoBehaviour
             _floatingTexts.Add(_ft);
         }
 
+        _ft.go.transform.localScale = Vector3.one;
+
         return _ft;
     }
 }
