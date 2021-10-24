@@ -14,6 +14,7 @@ public class FloatingTextManager : MonoBehaviour
         public float duration;
         public float lastShown;
 
+        //comment
         public void Show()
         {
             active = true;
