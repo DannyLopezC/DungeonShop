@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Collidable : MonoBehaviour
 {
-    protected virtual void Start() { }
+    protected virtual void Start()
+    {
+    }
 
     private void OnCollisionEnter2D(Collision2D c) => OnCollide(c.collider);
     private void OnTriggerEnter2D(Collider2D c) => OnCollide(c);
@@ -12,6 +14,11 @@ public class Collidable : MonoBehaviour
     private void OnCollisionExit2D(Collision2D c) => OnExitCollide(c.collider);
     private void OnTriggerExit2D(Collider2D c) => OnExitCollide(c);
 
-    protected virtual void OnCollide(Collider2D c) { }
-    protected virtual void OnExitCollide(Collider2D c) { }
+    protected virtual void OnCollide(Collider2D c)
+    {
+    }
+
+    protected virtual void OnExitCollide(Collider2D c)
+    {
+    }
 }

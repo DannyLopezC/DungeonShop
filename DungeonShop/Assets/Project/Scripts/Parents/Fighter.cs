@@ -7,10 +7,10 @@ public class Fighter : MonoBehaviour
     //Public fields
     private float _life;
 
-    public float life
+    public float Life
     {
-        get { return _life; }
-        set { _life = Mathf.Clamp(value, value, maxLife); }
+        get => _life;
+        set => _life = Mathf.Clamp(value, value, maxLife);
     }
 
     public float maxLife;
@@ -26,27 +26,24 @@ public class Fighter : MonoBehaviour
 
     protected virtual void Start()
     {
-        life = maxLife;
+        Life = maxLife;
     }
 
     protected virtual void ReceiveDamage(Damage dmg)
     {
-        if (Time.time - lastInmune > inmuneTime)
-        {
-            lastInmune = Time.time;
+        if (!(Time.time - lastInmune > inmuneTime)) return;
+        lastInmune = Time.time;
 
-            life -= dmg.damageAmount;
+        Life -= dmg.damageAmount;
 
-            pushDirection = (transform.position - dmg.origin).normalized * dmg.pushForce;
+        pushDirection = (transform.position - dmg.origin).normalized * dmg.pushForce;
 
-            GameManager.instance.ShowText($"{dmg.damageAmount} damage", 35, Color.white, transform.position, Vector3.up * Random.Range(30, 50), 2f);
+        GameManager.instance.ShowText($"{dmg.damageAmount} damage", 35, Color.white, transform.position,
+            Vector3.up * Random.Range(30, 50), 2f);
 
-            if (life <= 0)
-            {
-                life = 0;
-                Death();
-            }
-        }
+        if (!(Life <= 0)) return;
+        Life = 0;
+        Death();
     }
 
     protected virtual void Death()

@@ -16,18 +16,12 @@ public class Player : Fighter
 
     private void Awake()
     {
-        clothesId = 0;
+        ClothesId = 0;
     }
 
-    protected override void Start()
+    public int ClothesId
     {
-        base.Start();
-
-    }
-
-    public int clothesId
-    {
-        get { return _clothesId; }
+        get => _clothesId;
         set
         {
             _clothesId = Mathf.Clamp(value, 0, clothes.Count - 1);
@@ -75,11 +69,5 @@ public class Player : Fighter
     {
         currentClothes = clothes[id];
         spriteRenderer.sprite = currentClothes.sprite;
-    }
-
-    protected override void Death()
-    {
-        base.Death();
-        //restart scene
     }
 }

@@ -36,16 +36,12 @@ public class Enemy : Fighter
         if (_chasing) Movement(_player.position);
         else if (_goingHome) Movement(_startingPos);
 
-        _chasing = Vector3.Distance(_player.position, _startingPos) < chaseLength &&
-            Vector3.Distance(_player.position, _startingPos) < triggerLength &&
-            GameManager.instance.player.isActiveAndEnabled;
+        var position = _player.position;
+        _chasing = Vector3.Distance(position, _startingPos) < chaseLength &&
+                   Vector3.Distance(position, _startingPos) < triggerLength &&
+                   GameManager.instance.player.isActiveAndEnabled;
 
         _goingHome = !_chasing && !_inHome;
-    }
-
-    private void Update()
-    {
-        //GetComponentInChildren<Image>().fillAmount = life / maxLife;
     }
 
     private void OnTriggerEnter2D(Collider2D c)
@@ -74,27 +70,27 @@ public class Enemy : Fighter
 
     private void HomeReached(Collider2D c)
     {
-        if (c.tag == "Home") _inHome = true;
+        if (c.CompareTag("Home")) _inHome = true;
     }
 
     private void ExitHome(Collider2D c)
     {
-        if (c.tag == "Home") _inHome = false;
+        if (c.CompareTag("Home")) _inHome = false;
     }
+
     private void DoDamage(Collider2D c)
     {
-        if (c.tag == "Player")
-        {
-            Damage dmg = new Damage(transform.position, damage, force);
+        if (!c.CompareTag("Player")) return;
+        Damage dmg = new Damage(transform.position, damage, force);
 
-            c.SendMessage("ReceiveDamage", dmg);
-        }
+        c.SendMessage("ReceiveDamage", dmg);
     }
 
     private void Movement(Vector3 objective)
     {
-        float x = objective.x > transform.position.x ? 1 : -1;
-        float y = objective.y > transform.position.y ? 1 : -1;
+        var position = transform.position;
+        float x = objective.x > position.x ? 1 : -1;
+        float y = objective.y > position.y ? 1 : -1;
 
         if (x != _moveDelta.x)
         {

@@ -25,7 +25,7 @@ public class ShopItem : MonoBehaviour
 
     public bool selected
     {
-        get { return _selected; }
+        get => _selected;
         set
         {
             _selected = value;

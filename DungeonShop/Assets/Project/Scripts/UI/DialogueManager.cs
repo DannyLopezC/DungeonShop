@@ -11,20 +11,20 @@ public class DialogueManager : MonoBehaviour
     private List<string> _sentences;
     public GameObject exitButton, shopButton;
 
-    public bool buttonsOff
+    public bool ButtonsOff
     {
-        get { return _buttonsOff; }
+        get => _buttonsOff;
         set
         {
             if (!value)
             {
-                exitButton.SetActive(!value);
-                shopButton.SetActive(!value);
+                exitButton.SetActive(true);
+                shopButton.SetActive(true);
             }
             else
             {
-                exitButton.SetActive(!value);
-                shopButton.SetActive(!value);
+                exitButton.SetActive(false);
+                shopButton.SetActive(false);
             }
 
             _buttonsOff = value;
@@ -36,16 +36,13 @@ public class DialogueManager : MonoBehaviour
     public GameManager gm;
 
     public Animator animator;
+    private static readonly int Show = Animator.StringToHash("show");
+    private static readonly int Hide = Animator.StringToHash("hide");
 
     private void Start()
     {
         _sentences = new List<string>();
         gm = GameManager.instance;
-    }
-
-    private void Update()
-    {
-
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -57,11 +54,11 @@ public class DialogueManager : MonoBehaviour
 
         foreach (string s in dialogue.sentences) _sentences.Add(s);
 
-        animator.SetTrigger("show");
+        animator.SetTrigger(Show);
         DisplaySentence();
     }
 
-    public void DisplaySentence()
+    private void DisplaySentence()
     {
         string s = _sentences[Random.Range(0, _sentences.Count - 1)];
 
@@ -71,20 +68,19 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator Type(string s, bool goodbye = false)
     {
-        buttonsOff = goodbye;
+        ButtonsOff = goodbye;
         gm.inDialogue = true;
         dialogueText.text = "";
-        foreach (char l in s.ToCharArray())
+        foreach (char l in s)
         {
             dialogueText.text += l;
             yield return new WaitForSeconds(0.05f);
-
         }
 
         if (goodbye)
         {
             yield return new WaitForSeconds(1.5f);
-            animator.SetTrigger("hide");
+            animator.SetTrigger(Hide);
             gm.inDialogue = false;
             _buttonsOff = false;
         }
@@ -94,13 +90,13 @@ public class DialogueManager : MonoBehaviour
     {
         if (accept)
         {
-            animator.SetTrigger("hide");
+            animator.SetTrigger(Hide);
             gm.uIManager.OnShop(true);
             gm.inDialogue = false;
         }
         else
         {
-            if (!gm.inDialogue) animator.SetTrigger("show");
+            if (!gm.inDialogue) animator.SetTrigger(Show);
             string s = gm.goodbyeDialogue.sentences[Random.Range(0, gm.goodbyeDialogue.sentences.Count - 1)];
             StopAllCoroutines();
             StartCoroutine(Type(s, true));

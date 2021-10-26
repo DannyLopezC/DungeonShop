@@ -14,11 +14,13 @@ public class CameraMotor : MonoBehaviour
 
         //x bounds 
         float deltaX = lookAt.position.x - transform.position.x;
-        if (deltaX > xbound || deltaX < -xbound) delta.x = deltaX + (transform.position.x < lookAt.position.x ? -xbound : xbound);
+        if (deltaX > xbound || deltaX < -xbound)
+            delta.x = deltaX + (transform.position.x < lookAt.position.x ? -xbound : xbound);
 
         //y bounds
         float deltaY = lookAt.position.y - transform.position.y;
-        if (deltaY > ybound || deltaY < -ybound) delta.y = deltaY + (transform.position.y < lookAt.position.y ? -ybound : ybound);
+        if (deltaY > ybound || deltaY < -ybound)
+            delta.y = deltaY + (transform.position.y < lookAt.position.y ? -ybound : ybound);
 
         transform.position += new Vector3(delta.x, delta.y, 0);
     }

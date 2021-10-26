@@ -56,7 +56,7 @@ public class FloatingTextManager : MonoBehaviour
         _ft.txt.fontSize = fontSize;
         _ft.txt.color = color;
 
-        _ft.go.transform.position = Camera.main.WorldToScreenPoint(position);
+        if (!(Camera.main is null)) _ft.go.transform.position = Camera.main.WorldToScreenPoint(position);
         _ft.motion = motion;
 
         _ft.duration = duration;
@@ -71,8 +71,7 @@ public class FloatingTextManager : MonoBehaviour
         if (_ft == null)
         {
             _ft = new FloatingText();
-            _ft.go = Instantiate(textPrefab);
-            _ft.go.transform.SetParent(textContainer.transform);
+            _ft.go = Instantiate(textPrefab, textContainer.transform, true);
             _ft.txt = _ft.go.GetComponent<TMP_Text>();
 
             _floatingTexts.Add(_ft);

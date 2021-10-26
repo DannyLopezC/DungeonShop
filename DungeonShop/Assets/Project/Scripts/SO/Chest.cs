@@ -11,7 +11,7 @@ public class Chest : Collectable
 
     protected override void OnCollide(Collider2D c)
     {
-        if (c.tag == "Player")
+        if (c.CompareTag("Player"))
         {
             if (!_opened)
             {

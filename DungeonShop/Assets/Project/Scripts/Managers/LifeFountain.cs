@@ -9,16 +9,16 @@ public class LifeFountain : Collidable
 
     protected override void OnCollide(Collider2D c)
     {
-        if (c.tag == "Player") _healing = true;
+        if (c.CompareTag("Player")) _healing = true;
     }
 
     protected override void OnExitCollide(Collider2D c)
     {
-        if (c.tag == "Player") _healing = false;
+        if (c.CompareTag("Player")) _healing = false;
     }
 
     private void Update()
     {
-        if (_healing) GameManager.instance.player.life += healAmount;
+        if (_healing) GameManager.instance.player.Life += healAmount;
     }
 }

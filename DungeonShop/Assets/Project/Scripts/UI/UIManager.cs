@@ -11,77 +11,55 @@ public class UIManager : MonoBehaviour
 {
     #region variables
 
-    [BoxGroup("HUD")]
-    public Button inventoryButton;
-    [BoxGroup("HUD")]
-    public Image lifeBar;
-    [BoxGroup("HUD")]
-    public TMP_Text hudMoney;
+    [BoxGroup("HUD")] public Button inventoryButton;
+    [BoxGroup("HUD")] public Image lifeBar;
+    [BoxGroup("HUD")] public TMP_Text hudMoney;
 
-    [BoxGroup("Menu")]
-    public GameObject menuGo;
-    [BoxGroup("Menu")]
-    public bool menuOpened = false;
-    [BoxGroup("Menu")]
-    public bool menuChanging = false;
-    [BoxGroup("Menu")]
-    public Animator menuAnimator;
-    [BoxGroup("Menu")]
-    public Image weaponSprite;
-    [BoxGroup("Menu")]
-    public Image skinSprite;
-    [BoxGroup("Menu")]
-    public TMP_Text moneyAmount;
-    [BoxGroup("Menu")]
-    public TMP_Text skinsAmount;
-    [BoxGroup("Menu")]
-    public TMP_Text weaponsAmount;
-    [BoxGroup("Menu")]
-    public Image menuLifeBar;
-    [BoxGroup("Menu")]
-    public TMP_Text damageAmount;
-    [BoxGroup("Menu")]
-    public TMP_Text forceAmount;
+    [BoxGroup("Menu")] public GameObject menuGo;
+    [BoxGroup("Menu")] public bool menuOpened = false;
+    [BoxGroup("Menu")] public bool menuChanging = false;
+    [BoxGroup("Menu")] public Animator menuAnimator;
+    [BoxGroup("Menu")] public Image weaponSprite;
+    [BoxGroup("Menu")] public Image skinSprite;
+    [BoxGroup("Menu")] public TMP_Text moneyAmount;
+    [BoxGroup("Menu")] public TMP_Text skinsAmount;
+    [BoxGroup("Menu")] public TMP_Text weaponsAmount;
+    [BoxGroup("Menu")] public Image menuLifeBar;
+    [BoxGroup("Menu")] public TMP_Text damageAmount;
+    [BoxGroup("Menu")] public TMP_Text forceAmount;
 
-    [BoxGroup("Shop")]
-    public GameObject shopWeaponPrefab;
-    [BoxGroup("Shop")]
-    public GameObject shopClothesPrefab;
-    [BoxGroup("Shop")]
-    public ShopItem currentShopItem;
-    [BoxGroup("Shop")]
-    public TMP_Text moneyShopAmount;
-    [BoxGroup("Shop")]
-    public Animator shopAnimator;
-    [BoxGroup("Shop")]
-    public bool shopOpened = false;
-    [BoxGroup("Shop")]
-    public bool shopChanging = false;
-    [BoxGroup("Shop")]
-    public GameObject shopGo;
+    [BoxGroup("Shop")] public GameObject shopWeaponPrefab;
+    [BoxGroup("Shop")] public GameObject shopClothesPrefab;
+    [BoxGroup("Shop")] public ShopItem currentShopItem;
+    [BoxGroup("Shop")] public TMP_Text moneyShopAmount;
+    [BoxGroup("Shop")] public Animator shopAnimator;
+    [BoxGroup("Shop")] public bool shopOpened = false;
+    [BoxGroup("Shop")] public bool shopChanging = false;
+    [BoxGroup("Shop")] public GameObject shopGo;
 
     [InlineEditor, BoxGroup("Shop/AvailableItems")]
     public List<Weapon> availableWeapons;
+
     [InlineEditor, BoxGroup("Shop/AvailableItems")]
     public List<Clothes> availableClothes;
 
     [InlineEditor, BoxGroup("Shop/Selling")]
     public List<ShopItem> sellClothes;
+
     [InlineEditor, BoxGroup("Shop/Selling")]
     public List<ShopItem> sellWeapons;
-    [BoxGroup("Shop/Selling")]
-    public Transform sellContent;
-    [BoxGroup("Shop/Selling")]
-    public GameObject sellPanel;
+
+    [BoxGroup("Shop/Selling")] public Transform sellContent;
+    [BoxGroup("Shop/Selling")] public GameObject sellPanel;
 
     [InlineEditor, BoxGroup("Shop/Buying")]
     public List<ShopItem> buyClothes;
+
     [InlineEditor, BoxGroup("Shop/Buying")]
     public List<ShopItem> buyWeapons;
-    [BoxGroup("Shop/Buying")]
-    public Transform buyContent;
-    [BoxGroup("Shop/Buying")]
-    public GameObject buyPanel;
+
+    [BoxGroup("Shop/Buying")] public Transform buyContent;
+    [BoxGroup("Shop/Buying")] public GameObject buyPanel;
 
     public Scrollbar scrollBar;
 
@@ -94,7 +72,7 @@ public class UIManager : MonoBehaviour
     {
         gm = GameManager.instance;
         playerAttackComponent = gm.player.GetComponentInChildren<Attack>();
-        weaponSprite.sprite = playerAttackComponent.weapons[playerAttackComponent.equipped].sprite;
+        weaponSprite.sprite = playerAttackComponent.weapons[playerAttackComponent.Equipped].sprite;
         UpdateUIValues();
 
         SetSellItems();
@@ -103,16 +81,21 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (!shopOpened && !gm.inDialogue && !gm.inShop) if (Input.GetKeyDown(KeyCode.Escape)) OnInventory(!menuOpened);
-        if (shopOpened && gm.inShop) if (Input.GetKeyDown(KeyCode.Escape)) OnShop(false);
+        if (!shopOpened && !gm.inDialogue && !gm.inShop)
+            if (Input.GetKeyDown(KeyCode.Escape))
+                OnInventory(!menuOpened);
+        if (shopOpened && gm.inShop)
+            if (Input.GetKeyDown(KeyCode.Escape))
+                OnShop(false);
 
         UpdateUIValues();
     }
 
     #region buttons
+
     public void OnNextWeapon()
     {
-        Weapon nextWeapon = playerAttackComponent.weapons[playerAttackComponent.equipped];
+        Weapon nextWeapon = playerAttackComponent.weapons[playerAttackComponent.Equipped];
         int nextId = 0;
 
         for (int i = 0; i < playerAttackComponent.weapons.Count; i++)
@@ -133,7 +116,7 @@ public class UIManager : MonoBehaviour
 
     public void OnBackWeapon()
     {
-        Weapon backWeapon = playerAttackComponent.weapons[playerAttackComponent.equipped];
+        Weapon backWeapon = playerAttackComponent.weapons[playerAttackComponent.Equipped];
         int nextId = 0;
 
         for (int i = 0; i < playerAttackComponent.weapons.Count; i++)
@@ -154,7 +137,7 @@ public class UIManager : MonoBehaviour
 
     public void OnNextSkin()
     {
-        Clothes nextClothes = gm.player.clothes[gm.player.clothesId];
+        Clothes nextClothes = gm.player.clothes[gm.player.ClothesId];
         int nextId = 0;
 
         for (int i = 0; i < gm.player.clothes.Count; i++)
@@ -175,7 +158,7 @@ public class UIManager : MonoBehaviour
 
     public void OnBackSkin()
     {
-        Clothes backClothes = gm.player.clothes[gm.player.clothesId];
+        Clothes backClothes = gm.player.clothes[gm.player.ClothesId];
         int nextId = 0;
 
         for (int i = 0; i < gm.player.clothes.Count; i++)
@@ -193,6 +176,7 @@ public class UIManager : MonoBehaviour
         skinSprite.sprite = backClothes.sprite;
         gm.player.ChangeClothingV2(nextId);
     }
+
     #endregion
 
     public void UpdateUIValues()
@@ -207,16 +191,15 @@ public class UIManager : MonoBehaviour
         damageAmount.text = playerAttackComponent.currentWeapon.damage.ToString();
         forceAmount.text = playerAttackComponent.currentWeapon.force.ToString();
 
-        menuLifeBar.fillAmount = gm.player.life / gm.player.maxLife;
-        lifeBar.fillAmount = gm.player.life / gm.player.maxLife;
+        menuLifeBar.fillAmount = gm.player.Life / gm.player.maxLife;
+        lifeBar.fillAmount = gm.player.Life / gm.player.maxLife;
     }
 
-    public void OnReloadScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+    public void OnReloadScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    public void OnExit() => Application.Quit();
 
     #region shop
+
     public void SetSellItems()
     {
         sellClothes.Clear();
@@ -417,9 +400,11 @@ public class UIManager : MonoBehaviour
         {
             if (playerAttackComponent.weapons.Count <= 1)
             {
-                gm.ShowText($"You have only one item of this type", 50, Color.yellow, gm.player.transform.position, Vector3.up * Random.Range(30, 50), 2f);
+                gm.ShowText($"You have only one item of this type", 50, Color.yellow, gm.player.transform.position,
+                    Vector3.up * Random.Range(30, 50), 2f);
                 return;
             }
+
             Weapon w = playerAttackComponent.weapons.Find(_w => _w.id == currentShopItem.itemId);
             if (w != null) playerAttackComponent.weapons.Remove(w);
 
@@ -429,7 +414,8 @@ public class UIManager : MonoBehaviour
         {
             if (gm.player.clothes.Count <= 1)
             {
-                gm.ShowText($"You have only one item of this type", 50, Color.yellow, gm.player.transform.position, Vector3.up * Random.Range(30, 50), 2f);
+                gm.ShowText($"You have only one item of this type", 50, Color.yellow, gm.player.transform.position,
+                    Vector3.up * Random.Range(30, 50), 2f);
                 return;
             }
 
@@ -443,7 +429,8 @@ public class UIManager : MonoBehaviour
         SetBuyItems();
 
         gm.player.money += currentShopItem.priceNum;
-        gm.ShowText($"+{currentShopItem.priceNum} gold", 50, Color.yellow, gm.player.transform.position, Vector3.up * Random.Range(30, 50), 2f);
+        gm.ShowText($"+{currentShopItem.priceNum} gold", 50, Color.yellow, gm.player.transform.position,
+            Vector3.up * Random.Range(30, 50), 2f);
     }
 
     public void OnBuy()
@@ -451,7 +438,8 @@ public class UIManager : MonoBehaviour
         if (currentShopItem == null) return;
         if (gm.player.money < currentShopItem.priceNum)
         {
-            gm.ShowText("You have no gold", 50, Color.yellow, gm.player.transform.position, Vector3.up * Random.Range(30, 50), 2f);
+            gm.ShowText("You have no gold", 50, Color.yellow, gm.player.transform.position,
+                Vector3.up * Random.Range(30, 50), 2f);
             return;
         }
 
@@ -470,7 +458,8 @@ public class UIManager : MonoBehaviour
         SetBuyItems();
 
         gm.player.money -= currentShopItem.priceNum;
-        gm.ShowText($"-{currentShopItem.priceNum} gold", 50, Color.yellow, gm.player.transform.position, Vector3.up * Random.Range(30, 50), 2f);
+        gm.ShowText($"-{currentShopItem.priceNum} gold", 50, Color.yellow, gm.player.transform.position,
+            Vector3.up * Random.Range(30, 50), 2f);
     }
 
     public void OnShop(bool open)
@@ -483,11 +472,11 @@ public class UIManager : MonoBehaviour
         {
             shopChanging = true;
             buttonImage.DOFade(0, 0.2f)
-                 .OnComplete(() =>
-                 {
-                     inventoryButton.gameObject.SetActive(!open);
-                     shopChanging = false;
-                 });
+                .OnComplete(() =>
+                {
+                    inventoryButton.gameObject.SetActive(!open);
+                    shopChanging = false;
+                });
 
             shopAnimator.SetTrigger("show");
             gm.inShop = true;
@@ -509,6 +498,7 @@ public class UIManager : MonoBehaviour
             gm.dialogueManager.EndDialogue(false);
         }
     }
+
     #endregion
 
     public void OnInventory(bool open)
@@ -521,11 +511,11 @@ public class UIManager : MonoBehaviour
         {
             menuChanging = true;
             buttonImage.DOFade(0, 0.2f)
-                 .OnComplete(() =>
-                 {
-                     inventoryButton.gameObject.SetActive(!open);
-                     menuChanging = false;
-                 });
+                .OnComplete(() =>
+                {
+                    inventoryButton.gameObject.SetActive(!open);
+                    menuChanging = false;
+                });
 
             menuAnimator.SetTrigger("show");
             gm.inUI = true;

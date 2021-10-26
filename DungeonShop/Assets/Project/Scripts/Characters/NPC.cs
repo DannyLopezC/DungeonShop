@@ -9,13 +9,13 @@ public class NPC : Collidable
 
     protected override void OnCollide(Collider2D c)
     {
-        if (c.tag == "Player")
+        if (c.CompareTag("Player"))
         {
             TriggerDialogue();
         }
     }
 
-    public void TriggerDialogue()
+    private static void TriggerDialogue()
     {
         GameManager.instance.dialogueManager.StartDialogue(GameManager.instance.firstDialogue);
     }
