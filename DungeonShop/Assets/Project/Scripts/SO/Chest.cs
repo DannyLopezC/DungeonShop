@@ -11,22 +11,22 @@ public class Chest : Collectable
 
     protected override void OnCollide(Collider2D c)
     {
-        if (c.CompareTag("Player"))
+        if (!c.CompareTag("Player")) return;
+
+        if (!_opened)
         {
-            if (!_opened)
-            {
-                _opened = true;
-                ChangeSprite(openedChest);
-            }
-            else OnCollect(c);
+            _opened = true;
+            ChangeSprite(openedChest);
         }
+        else OnCollect(c);
     }
 
     protected override void OnCollect(Collider2D c)
     {
         if (!collected)
         {
-            GameManager.instance.ShowText($"+{money} gold", 50, Color.yellow, transform.position, Vector3.up * Random.Range(30, 50), 2f);
+            GameManager.instance.ShowText($"+{money} gold", 50, Color.yellow, transform.position,
+                Vector3.up * Random.Range(30, 50), 2f);
             ChangeSprite(emptyChest);
             c.GetComponent<Player>().money += money;
         }

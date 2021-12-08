@@ -19,6 +19,6 @@ public class LifeFountain : Collidable
 
     private void Update()
     {
-        if (_healing) GameManager.instance.player.Life += healAmount;
+        if (_healing) GameManager.instance.player.life += healAmount;
     }
 }

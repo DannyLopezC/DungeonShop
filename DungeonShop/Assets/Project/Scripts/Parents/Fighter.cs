@@ -7,7 +7,7 @@ public class Fighter : MonoBehaviour
     //Public fields
     private float _life;
 
-    public float Life
+    public float life
     {
         get => _life;
         set => _life = Mathf.Clamp(value, value, maxLife);
@@ -26,7 +26,7 @@ public class Fighter : MonoBehaviour
 
     protected virtual void Start()
     {
-        Life = maxLife;
+        life = maxLife;
     }
 
     protected virtual void ReceiveDamage(Damage dmg)
@@ -34,15 +34,15 @@ public class Fighter : MonoBehaviour
         if (!(Time.time - lastInmune > inmuneTime)) return;
         lastInmune = Time.time;
 
-        Life -= dmg.damageAmount;
+        life -= dmg.damageAmount;
 
         pushDirection = (transform.position - dmg.origin).normalized * dmg.pushForce;
 
         GameManager.instance.ShowText($"{dmg.damageAmount} damage", 35, Color.white, transform.position,
             Vector3.up * Random.Range(30, 50), 2f);
 
-        if (!(Life <= 0)) return;
-        Life = 0;
+        if (!(life <= 0)) return;
+        life = 0;
         Death();
     }
 

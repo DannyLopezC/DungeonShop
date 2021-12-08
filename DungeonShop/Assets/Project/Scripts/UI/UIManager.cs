@@ -191,8 +191,8 @@ public class UIManager : MonoBehaviour
         damageAmount.text = playerAttackComponent.currentWeapon.damage.ToString();
         forceAmount.text = playerAttackComponent.currentWeapon.force.ToString();
 
-        menuLifeBar.fillAmount = gm.player.Life / gm.player.maxLife;
-        lifeBar.fillAmount = gm.player.Life / gm.player.maxLife;
+        menuLifeBar.fillAmount = gm.player.life / gm.player.maxLife;
+        lifeBar.fillAmount = gm.player.life / gm.player.maxLife;
     }
 
     public void OnReloadScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

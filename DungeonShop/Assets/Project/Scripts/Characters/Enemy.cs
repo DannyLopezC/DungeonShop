@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,12 +24,22 @@ public class Enemy : Fighter
 
     public float rotationThreshHold;
 
+    public Image enemyLifeBarSlider;
+    public GameObject enemyLifeBar;
+    public Vector3 enemyLifeBarOffset;
+
     protected override void Start()
     {
         base.Start();
 
         _player = GameManager.instance.player.transform;
         _startingPos = homeTransform.position;
+    }
+
+    private void Update()
+    {
+        enemyLifeBarSlider.fillAmount = life / maxLife;
+        enemyLifeBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + enemyLifeBarOffset);
     }
 
     private void FixedUpdate()
